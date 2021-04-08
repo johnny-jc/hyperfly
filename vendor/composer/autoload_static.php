@@ -4,18 +4,18 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit8debe4022c890abeaadcff56584053fb
+class ComposerStaticInite78cf6322984ec8650fceaa889214e48
 {
     public static $files = array (
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
-        'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
         '9b38cf48e83f5d8f60375221cd213eee' => __DIR__ . '/..' . '/phpstan/phpstan/bootstrap.php',
+        'ec07570ca5a812141189b1fa81503674' => __DIR__ . '/..' . '/phpunit/phpunit/src/Framework/Assert/Functions.php',
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '6e3fae29631ef280660b3cdad06f25a8' => __DIR__ . '/..' . '/symfony/deprecation-contracts/function.php',
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '0d59ee240a4cd96ddbb4ff164fccea4d' => __DIR__ . '/..' . '/symfony/polyfill-php73/bootstrap.php',
-        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         '8825ede83f2f289127722d4e842cf7e8' => __DIR__ . '/..' . '/symfony/polyfill-intl-grapheme/bootstrap.php',
+        'e69f7f6ee287b969198c3c9d6777bd38' => __DIR__ . '/..' . '/symfony/polyfill-intl-normalizer/bootstrap.php',
         'b6b991a57620e2fb6b2f66f03fe9ddc2' => __DIR__ . '/..' . '/symfony/string/Resources/functions.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
         '7b11c4dc42b3b3023073cb14e519683c' => __DIR__ . '/..' . '/ralouphie/getallheaders/src/getallheaders.php',
@@ -91,12 +91,9 @@ class ComposerStaticInit8debe4022c890abeaadcff56584053fb
             'Laminas\\Stdlib\\' => 15,
             'Laminas\\Mime\\' => 13,
         ),
-        'I' => 
-        array (
-            'Installer\\' => 10,
-        ),
         'H' => 
         array (
+            'Hyperf\\Watcher\\' => 15,
             'Hyperf\\Utils\\' => 13,
             'Hyperf\\Testing\\' => 15,
             'Hyperf\\Server\\' => 14,
@@ -154,6 +151,7 @@ class ComposerStaticInit8debe4022c890abeaadcff56584053fb
         'A' => 
         array (
             'App\\' => 4,
+            'Api\\' => 4,
         ),
     );
 
@@ -161,8 +159,8 @@ class ComposerStaticInit8debe4022c890abeaadcff56584053fb
         'phpDocumentor\\Reflection\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpdocumentor/reflection-common/src',
-            1 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
-            2 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            1 => __DIR__ . '/..' . '/phpdocumentor/reflection-docblock/src',
+            2 => __DIR__ . '/..' . '/phpdocumentor/type-resolver/src',
         ),
         'Webmozart\\Assert\\' => 
         array (
@@ -313,9 +311,9 @@ class ComposerStaticInit8debe4022c890abeaadcff56584053fb
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-mime/src',
         ),
-        'Installer\\' => 
+        'Hyperf\\Watcher\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/installer',
+            0 => __DIR__ . '/..' . '/hyperf/watcher/src',
         ),
         'Hyperf\\Utils\\' => 
         array (
@@ -485,6 +483,10 @@ class ComposerStaticInit8debe4022c890abeaadcff56584053fb
         array (
             0 => __DIR__ . '/../..' . '/app',
         ),
+        'Api\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/api',
+        ),
     );
 
     public static $prefixesPsr0 = array (
@@ -498,6 +500,9 @@ class ComposerStaticInit8debe4022c890abeaadcff56584053fb
     );
 
     public static $classMap = array (
+        'Api\\ApiEntrance\\Admin\\v1\\Controller\\AdminController' => __DIR__ . '/../..' . '/api/ApiEntrance/Admin/v1/Controller/AdminController.php',
+        'Api\\ApiTool\\ApiToolExceptionHandler' => __DIR__ . '/../..' . '/api/ApiTool/ApiToolExceptionHandler.php',
+        'Api\\ApiTool\\ApiToolNotFoundExceptionHandler' => __DIR__ . '/../..' . '/api/ApiTool/ApiToolNotFoundExceptionHandler.php',
         'App\\Controller\\AbstractController' => __DIR__ . '/../..' . '/app/Controller/AbstractController.php',
         'App\\Controller\\IndexController' => __DIR__ . '/../..' . '/app/Controller/IndexController.php',
         'App\\Exception\\Handler\\AppExceptionHandler' => __DIR__ . '/../..' . '/app/Exception/Handler/AppExceptionHandler.php',
@@ -1551,6 +1556,18 @@ class ComposerStaticInit8debe4022c890abeaadcff56584053fb
         'Hyperf\\Utils\\Traits\\StaticInstance' => __DIR__ . '/..' . '/hyperf/utils/src/Traits/StaticInstance.php',
         'Hyperf\\Utils\\WaitGroup' => __DIR__ . '/..' . '/hyperf/utils/src/WaitGroup.php',
         'Hyperf\\Utils\\Waiter' => __DIR__ . '/..' . '/hyperf/utils/src/Waiter.php',
+        'Hyperf\\Watcher\\Ast\\Metadata' => __DIR__ . '/..' . '/hyperf/watcher/src/Ast/Metadata.php',
+        'Hyperf\\Watcher\\Ast\\RewriteClassNameVisitor' => __DIR__ . '/..' . '/hyperf/watcher/src/Ast/RewriteClassNameVisitor.php',
+        'Hyperf\\Watcher\\Command\\WatchCommand' => __DIR__ . '/..' . '/hyperf/watcher/src/Command/WatchCommand.php',
+        'Hyperf\\Watcher\\ConfigProvider' => __DIR__ . '/..' . '/hyperf/watcher/src/ConfigProvider.php',
+        'Hyperf\\Watcher\\Driver\\DriverInterface' => __DIR__ . '/..' . '/hyperf/watcher/src/Driver/DriverInterface.php',
+        'Hyperf\\Watcher\\Driver\\FindDriver' => __DIR__ . '/..' . '/hyperf/watcher/src/Driver/FindDriver.php',
+        'Hyperf\\Watcher\\Driver\\FindNewerDriver' => __DIR__ . '/..' . '/hyperf/watcher/src/Driver/FindNewerDriver.php',
+        'Hyperf\\Watcher\\Driver\\FswatchDriver' => __DIR__ . '/..' . '/hyperf/watcher/src/Driver/FswatchDriver.php',
+        'Hyperf\\Watcher\\Driver\\ScanFileDriver' => __DIR__ . '/..' . '/hyperf/watcher/src/Driver/ScanFileDriver.php',
+        'Hyperf\\Watcher\\Option' => __DIR__ . '/..' . '/hyperf/watcher/src/Option.php',
+        'Hyperf\\Watcher\\Process' => __DIR__ . '/..' . '/hyperf/watcher/src/Process.php',
+        'Hyperf\\Watcher\\Watcher' => __DIR__ . '/..' . '/hyperf/watcher/src/Watcher.php',
         'JsonException' => __DIR__ . '/..' . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
         'Laminas\\Mime\\Decode' => __DIR__ . '/..' . '/laminas/laminas-mime/src/Decode.php',
         'Laminas\\Mime\\Exception\\ExceptionInterface' => __DIR__ . '/..' . '/laminas/laminas-mime/src/Exception/ExceptionInterface.php',
@@ -3826,10 +3843,10 @@ class ComposerStaticInit8debe4022c890abeaadcff56584053fb
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit8debe4022c890abeaadcff56584053fb::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit8debe4022c890abeaadcff56584053fb::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit8debe4022c890abeaadcff56584053fb::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit8debe4022c890abeaadcff56584053fb::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInite78cf6322984ec8650fceaa889214e48::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInite78cf6322984ec8650fceaa889214e48::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInite78cf6322984ec8650fceaa889214e48::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInite78cf6322984ec8650fceaa889214e48::$classMap;
 
         }, null, ClassLoader::class);
     }

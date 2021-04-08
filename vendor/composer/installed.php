@@ -1,12 +1,12 @@
 <?php return array (
   'root' => 
   array (
-    'pretty_version' => 'v2.1.2',
-    'version' => '2.1.2.0',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => NULL,
+    'reference' => '7499ad71703301e0da4a5a536810966f1b94a84c',
     'name' => 'hyperf/hyperf-skeleton',
   ),
   'versions' => 
@@ -90,12 +90,12 @@
     ),
     'friendsofphp/php-cs-fixer' => 
     array (
-      'pretty_version' => 'v2.18.4',
-      'version' => '2.18.4.0',
+      'pretty_version' => 'v2.18.5',
+      'version' => '2.18.5.0',
       'aliases' => 
       array (
       ),
-      'reference' => '06f764e3cb6d60822d8f5135205f9d32b5508a31',
+      'reference' => 'e0f6d05c8b157f50029ca6c65c19ed2694f475bf',
     ),
     'graham-campbell/result-type' => 
     array (
@@ -189,12 +189,12 @@
     ),
     'hyperf/db-connection' => 
     array (
-      'pretty_version' => 'v2.1.11',
-      'version' => '2.1.11.0',
+      'pretty_version' => 'v2.1.13',
+      'version' => '2.1.13.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5f71e1d8455b35d80d2940627452d9b1c7f375a1',
+      'reference' => '410e3e9b9f11875fdd671e567ade01753d60e8ef',
     ),
     'hyperf/devtool' => 
     array (
@@ -288,12 +288,12 @@
     ),
     'hyperf/hyperf-skeleton' => 
     array (
-      'pretty_version' => 'v2.1.2',
-      'version' => '2.1.2.0',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => NULL,
+      'reference' => '7499ad71703301e0da4a5a536810966f1b94a84c',
     ),
     'hyperf/logger' => 
     array (
@@ -369,12 +369,21 @@
     ),
     'hyperf/utils' => 
     array (
-      'pretty_version' => 'v2.1.12',
-      'version' => '2.1.12.0',
+      'pretty_version' => 'v2.1.13',
+      'version' => '2.1.13.0',
       'aliases' => 
       array (
       ),
-      'reference' => '2870efc554b87c1c5f2c67cf1f353a97ae48fa1e',
+      'reference' => 'd1db8392599e06973939befd32eb2c0b956df350',
+    ),
+    'hyperf/watcher' => 
+    array (
+      'pretty_version' => 'v2.1.10',
+      'version' => '2.1.10.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'aaf80d24ecc4a88a1e30c4ce7719f5c51eb8588c',
     ),
     'jetbrains/phpstorm-stubs' => 
     array (
@@ -551,12 +560,12 @@
     ),
     'phpstan/phpstan' => 
     array (
-      'pretty_version' => '0.12.82',
-      'version' => '0.12.82.0',
+      'pretty_version' => '0.12.83',
+      'version' => '0.12.83.0',
       'aliases' => 
       array (
       ),
-      'reference' => '3920f0fb0aff39263d3a4cb0bca120a67a1a6a11',
+      'reference' => '4a967cec6efb46b500dd6d768657336a3ffe699f',
     ),
     'phpunit/php-code-coverage' => 
     array (
@@ -700,8 +709,8 @@
     array (
       'provided' => 
       array (
-        0 => '1.0',
-        1 => '1.0.0',
+        0 => '1.0.0',
+        1 => '1.0',
       ),
     ),
     'psr/simple-cache' => 

@@ -6,6 +6,9 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Api\\ApiEntrance\\Admin\\v1\\Controller\\AdminController' => $baseDir . '/api/ApiEntrance/Admin/v1/Controller/AdminController.php',
+    'Api\\ApiTool\\ApiToolExceptionHandler' => $baseDir . '/api/ApiTool/ApiToolExceptionHandler.php',
+    'Api\\ApiTool\\ApiToolNotFoundExceptionHandler' => $baseDir . '/api/ApiTool/ApiToolNotFoundExceptionHandler.php',
     'App\\Controller\\AbstractController' => $baseDir . '/app/Controller/AbstractController.php',
     'App\\Controller\\IndexController' => $baseDir . '/app/Controller/IndexController.php',
     'App\\Exception\\Handler\\AppExceptionHandler' => $baseDir . '/app/Exception/Handler/AppExceptionHandler.php',
@@ -1059,6 +1062,18 @@ return array(
     'Hyperf\\Utils\\Traits\\StaticInstance' => $vendorDir . '/hyperf/utils/src/Traits/StaticInstance.php',
     'Hyperf\\Utils\\WaitGroup' => $vendorDir . '/hyperf/utils/src/WaitGroup.php',
     'Hyperf\\Utils\\Waiter' => $vendorDir . '/hyperf/utils/src/Waiter.php',
+    'Hyperf\\Watcher\\Ast\\Metadata' => $vendorDir . '/hyperf/watcher/src/Ast/Metadata.php',
+    'Hyperf\\Watcher\\Ast\\RewriteClassNameVisitor' => $vendorDir . '/hyperf/watcher/src/Ast/RewriteClassNameVisitor.php',
+    'Hyperf\\Watcher\\Command\\WatchCommand' => $vendorDir . '/hyperf/watcher/src/Command/WatchCommand.php',
+    'Hyperf\\Watcher\\ConfigProvider' => $vendorDir . '/hyperf/watcher/src/ConfigProvider.php',
+    'Hyperf\\Watcher\\Driver\\DriverInterface' => $vendorDir . '/hyperf/watcher/src/Driver/DriverInterface.php',
+    'Hyperf\\Watcher\\Driver\\FindDriver' => $vendorDir . '/hyperf/watcher/src/Driver/FindDriver.php',
+    'Hyperf\\Watcher\\Driver\\FindNewerDriver' => $vendorDir . '/hyperf/watcher/src/Driver/FindNewerDriver.php',
+    'Hyperf\\Watcher\\Driver\\FswatchDriver' => $vendorDir . '/hyperf/watcher/src/Driver/FswatchDriver.php',
+    'Hyperf\\Watcher\\Driver\\ScanFileDriver' => $vendorDir . '/hyperf/watcher/src/Driver/ScanFileDriver.php',
+    'Hyperf\\Watcher\\Option' => $vendorDir . '/hyperf/watcher/src/Option.php',
+    'Hyperf\\Watcher\\Process' => $vendorDir . '/hyperf/watcher/src/Process.php',
+    'Hyperf\\Watcher\\Watcher' => $vendorDir . '/hyperf/watcher/src/Watcher.php',
     'JsonException' => $vendorDir . '/symfony/polyfill-php73/Resources/stubs/JsonException.php',
     'Laminas\\Mime\\Decode' => $vendorDir . '/laminas/laminas-mime/src/Decode.php',
     'Laminas\\Mime\\Exception\\ExceptionInterface' => $vendorDir . '/laminas/laminas-mime/src/Exception/ExceptionInterface.php',

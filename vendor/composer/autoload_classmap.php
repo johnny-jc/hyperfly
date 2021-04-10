@@ -6,8 +6,16 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'Api\\ApiActiveRecord\\RbacAdminActiveRecord' => $baseDir . '/api/ApiActiveRecord/RbacAdminActiveRecord.php',
+    'Api\\ApiBaseModel\\RbacAdminModel' => $baseDir . '/api/ApiBaseModel/RbacAdminModel.php',
+    'Api\\ApiBase\\ApiBaseController' => $baseDir . '/api/ApiBase/ApiBaseController.php',
     'Api\\ApiEntrance\\Admin\\v1\\Controller\\AdminController' => $baseDir . '/api/ApiEntrance/Admin/v1/Controller/AdminController.php',
+    'Api\\ApiEntrance\\Admin\\v1\\Controller\\RbacController' => $baseDir . '/api/ApiEntrance/Admin/v1/Controller/RbacController.php',
+    'Api\\ApiTool\\ApiToolAuthMiddleware' => $baseDir . '/api/ApiTool/ApiToolAuthMiddleware.php',
+    'Api\\ApiTool\\ApiToolCoreMiddleware' => $baseDir . '/api/ApiTool/ApiToolCoreMiddleware.php',
+    'Api\\ApiTool\\ApiToolCorsMiddleware' => $baseDir . '/api/ApiTool/ApiToolCorsMiddleware.php',
     'Api\\ApiTool\\ApiToolExceptionHandler' => $baseDir . '/api/ApiTool/ApiToolExceptionHandler.php',
+    'Api\\ApiTool\\ApiToolMethodAllowedMiddleware' => $baseDir . '/api/ApiTool/ApiToolMethodAllowedMiddleware.php',
     'Api\\ApiTool\\ApiToolNotFoundExceptionHandler' => $baseDir . '/api/ApiTool/ApiToolNotFoundExceptionHandler.php',
     'App\\Controller\\AbstractController' => $baseDir . '/app/Controller/AbstractController.php',
     'App\\Controller\\IndexController' => $baseDir . '/app/Controller/IndexController.php',

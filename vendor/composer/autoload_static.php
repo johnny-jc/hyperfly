@@ -500,8 +500,16 @@ class ComposerStaticInite78cf6322984ec8650fceaa889214e48
     );
 
     public static $classMap = array (
+        'Api\\ApiActiveRecord\\RbacAdminActiveRecord' => __DIR__ . '/../..' . '/api/ApiActiveRecord/RbacAdminActiveRecord.php',
+        'Api\\ApiBaseModel\\RbacAdminModel' => __DIR__ . '/../..' . '/api/ApiBaseModel/RbacAdminModel.php',
+        'Api\\ApiBase\\ApiBaseController' => __DIR__ . '/../..' . '/api/ApiBase/ApiBaseController.php',
         'Api\\ApiEntrance\\Admin\\v1\\Controller\\AdminController' => __DIR__ . '/../..' . '/api/ApiEntrance/Admin/v1/Controller/AdminController.php',
+        'Api\\ApiEntrance\\Admin\\v1\\Controller\\RbacController' => __DIR__ . '/../..' . '/api/ApiEntrance/Admin/v1/Controller/RbacController.php',
+        'Api\\ApiTool\\ApiToolAuthMiddleware' => __DIR__ . '/../..' . '/api/ApiTool/ApiToolAuthMiddleware.php',
+        'Api\\ApiTool\\ApiToolCoreMiddleware' => __DIR__ . '/../..' . '/api/ApiTool/ApiToolCoreMiddleware.php',
+        'Api\\ApiTool\\ApiToolCorsMiddleware' => __DIR__ . '/../..' . '/api/ApiTool/ApiToolCorsMiddleware.php',
         'Api\\ApiTool\\ApiToolExceptionHandler' => __DIR__ . '/../..' . '/api/ApiTool/ApiToolExceptionHandler.php',
+        'Api\\ApiTool\\ApiToolMethodAllowedMiddleware' => __DIR__ . '/../..' . '/api/ApiTool/ApiToolMethodAllowedMiddleware.php',
         'Api\\ApiTool\\ApiToolNotFoundExceptionHandler' => __DIR__ . '/../..' . '/api/ApiTool/ApiToolNotFoundExceptionHandler.php',
         'App\\Controller\\AbstractController' => __DIR__ . '/../..' . '/app/Controller/AbstractController.php',
         'App\\Controller\\IndexController' => __DIR__ . '/../..' . '/app/Controller/IndexController.php',

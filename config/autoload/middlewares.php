@@ -11,5 +11,8 @@ declare(strict_types=1);
  */
 return [
     'http' => [
+        Api\ApiTool\ApiToolCorsMiddleware::class,
+        Api\ApiTool\ApiToolMethodAllowedMiddleware::class,
+        Api\ApiTool\ApiToolAuthMiddleware::class,
     ],
 ];

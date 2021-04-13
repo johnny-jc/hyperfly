@@ -1,0 +1,106 @@
+<div id="pjax-content">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">管理员管理</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">首页</a></li>
+                        <li class="breadcrumb-item active">管理员管理</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+
+        <!-- content-header -->
+        <div class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <button type="button" id="create-admin" class="btn btn-primary btn-sm">添加管理员</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="dataTables_wrapper dt-bootstrap4"></div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-bordered table-hover dataTable dtr-inline" role="grid">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting sorting_asc">账号</th>
+                                            <th class="sorting sorting_asc">添加时间</th>
+                                            <th class="sorting sorting_asc">状态</th>
+                                            <th class="sorting sorting_asc">更新时间</th>
+                                            <th class="sorting sorting_asc">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="table-data">
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                        Showing 1 to 10 of 57 entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate float-right">
+                                        <ul class="pagination">
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:void(0)">上一页</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:void(0)">1</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:void(0)">下一页</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- pagination end -->
+                                </div>
+                            </div>
+                            <!-- row end -->
+                        </div>
+                        <!--card body end -->
+                    </div>
+                    <!-- card end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content -->
+    <script type="text/javascript">
+        var jq = $
+        jq(document).ready(function () {
+            var loadListData = function () {
+                var adminAccessToken = localStorage.getItem('admin_access_token')
+                var url = "http://127.0.0.1:9501/admin/v1/admin/getAdminList"
+                jq.ajax({
+                    url: url,
+                    data: {},
+                    dataType: "json",
+                    type: "POST",
+                    beforeSend: function (request) {
+                        request.setRequestHeader('Authentication', adminAccessToken)
+                    },
+                    success: function (response) {
+                        if (response.code == 0) {
+                            layer.msg(response.message, {icon: 5})
+                            return
+                        }
+                        console.log(response)
+                    }
+                })
+            }
+            loadListData()
+            //loadListData end
+        })
+    </script>
+</div>

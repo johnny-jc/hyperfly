@@ -12,8 +12,8 @@ declare(strict_types=1);
 return [
     'handler' => [
         'http' => [
-            Hyperf\HttpServer\Exception\Handler\HttpExceptionHandler::class,
-            Api\ApiTool\ApiToolExceptionHandler::class,
+            Api\ApiTool\Exception\ApiException::class,
+            Api\ApiTool\ExceptionHandler\ApiExceptionHandler::class,
         ],
     ],
 ];

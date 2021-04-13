@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="../../common/plugins/select2/css/select2.css">
+
+<div id="pjax-content">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">菜单管理</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="#">首页</a></li>
+                        <li class="breadcrumb-item active">菜单管理</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+
+        <!-- content-header -->
+        <div class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <button type="button" id="create-menu" class="btn btn-primary btn-sm"
+                                    data-toggle="modal" data-target="#createMenuModal">添加菜单
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="dataTables_wrapper dt-bootstrap4"></div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-bordered table-hover dataTable dtr-inline" role="grid">
+                                        <thead>
+                                        <tr role="row">
+                                            <th class="sorting sorting_asc">账号</th>
+                                            <th class="sorting sorting_asc">添加时间</th>
+                                            <th class="sorting sorting_asc">状态</th>
+                                            <th class="sorting sorting_asc">更新时间</th>
+                                            <th class="sorting sorting_asc">操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="table-data">
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                        Showing 1 to 10 of 57 entries
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate float-right">
+                                        <ul class="pagination">
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:void(0)">上一页</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:void(0)">1</a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:void(0)">下一页</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!-- pagination end -->
+                                </div>
+                            </div>
+                            <!-- row end -->
+                        </div>
+                        <!--card body end -->
+                    </div>
+                    <!-- card end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content -->
+
+    <!-- create modal start -->
+    <div class="modal fade" id="createMenuModal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">添加菜单</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>菜单名称</label>
+                        <input type="text" class="form-control" id="menu-name">
+                    </div>
+                    <div class="form-group">
+                        <label>排序</label>
+                        <input type="text" class="form-control" id="menu-sort">
+                    </div>
+                    <div class="form-group">
+                        <label>父级菜单</label>
+                        <select class="form-control" id="select-parent-menu" style="width:100%;">
+                            <option selected value=0>选择父级菜单</option>
+                            <option>1</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="submit-create-menu">添加</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- create modal end -->
+    <script type="text/javascript" src="../../common/plugins/select2/js/select2.min.js"></script>
+    <script type="text/javascript">
+        var jq = $
+        jq(document).ready(function () {
+            jq('#select-parent-menu').select2()
+            //select2 end
+            jq('#submit-create-menu').on('click', function () {
+                var name = jq('#menu-name').val()
+                var sort = jq('#menu-sort').val()
+                var parentMenuId = jq('#select-parent-menu').val()
+                var url = "http://127.0.0.1:9501/admin/v1/menu/createMenu"
+                jq.ajax({
+                    url: "",
+                    data: {name: name, sort: sort, parentMenuId: parentMenuId},
+                    dataType: "json",
+                    type: "POST",
+                    success: function (response) {
+
+                    }
+                })
+            })
+            //添加菜单 end
+            var loadListData = function () {
+                return
+                var adminAccessToken = localStorage.getItem('admin_access_token')
+                var url = "http://127.0.0.1:9501/admin/v1/menu/getMenuList"
+                jq.ajax({
+                    url: url,
+                    data: {},
+                    dataType: "json",
+                    type: "POST",
+                    beforeSend: function (request) {
+                        request.setRequestHeader('Authentication', adminAccessToken)
+                    },
+                    success: function (response) {
+                        if (response.code == 0) {
+                            layer.msg(response.message, {icon: 5})
+                            return
+                        }
+                        console.log(response)
+                    }
+                })
+            }
+            loadListData()
+            //loadListData end
+        })
+    </script>
+</div>

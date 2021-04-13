@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '7499ad71703301e0da4a5a536810966f1b94a84c',
+    'reference' => 'f13098f03ca6a7b8c4b34e0645295e428ceebbd9',
     'name' => 'hyperf/hyperf-skeleton',
   ),
   'versions' => 
@@ -78,6 +78,15 @@
       array (
       ),
       'reference' => 'e864bbf5904cb8f5bb334f99209b48018522f042',
+    ),
+    'egulias/email-validator' => 
+    array (
+      'pretty_version' => '2.1.25',
+      'version' => '2.1.25.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '0dbf5d78455d4d6a41d186da50adc1122ec066f4',
     ),
     'fig/http-message-util' => 
     array (
@@ -293,7 +302,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '7499ad71703301e0da4a5a536810966f1b94a84c',
+      'reference' => 'f13098f03ca6a7b8c4b34e0645295e428ceebbd9',
     ),
     'hyperf/logger' => 
     array (
@@ -367,6 +376,15 @@
       ),
       'reference' => '2724828c4f829e8f648479b1125135d9819d9d39',
     ),
+    'hyperf/translation' => 
+    array (
+      'pretty_version' => 'v2.1.0',
+      'version' => '2.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'ae3267dca80333b20b69dc5edb8b45ee9e5c985d',
+    ),
     'hyperf/utils' => 
     array (
       'pretty_version' => 'v2.1.13',
@@ -375,6 +393,15 @@
       array (
       ),
       'reference' => 'd1db8392599e06973939befd32eb2c0b956df350',
+    ),
+    'hyperf/validation' => 
+    array (
+      'pretty_version' => 'v2.1.10',
+      'version' => '2.1.10.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd3f632691e773c1a1c0fd1ddfe6694d66c364463',
     ),
     'hyperf/watcher' => 
     array (
@@ -989,6 +1016,15 @@
       array (
       ),
       'reference' => '5601e09b69f26c1828b13b6bb87cb07cddba3170',
+    ),
+    'symfony/polyfill-intl-idn' => 
+    array (
+      'pretty_version' => 'v1.22.1',
+      'version' => '1.22.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2d63434d922daf7da8dd863e7907e67ee3031483',
     ),
     'symfony/polyfill-intl-normalizer' => 
     array (

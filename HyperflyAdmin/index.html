@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="common/css/font-awesome-all.min.css">
     <link rel="stylesheet" href="common/css/adminlte.min.css">
 </head>
-<body class="sidebar-mini" style="height: auto">
+<body class="sidebar-mini" style="height:auto">
 <div class="wrapper">
 
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -119,42 +119,43 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item menu-item" attr="./module/rbacPermission/admin.html">
+                                <a href="javascript:void(0)" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>管理员管理</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item menu-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>权限管理</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
+                            <li class="nav-item menu-item" attr="./module/rbacPermission/menu.html">
+                                <a href="javascript:void(0)" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>菜单管理</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item menu-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>角色管理</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item menu-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>权限分配管理</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item menu-item">
                                 <a href="#" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>角色分配管理</p>
                                 </a>
                             </li>
+
                         </ul>
                     </li>
                 </ul>
@@ -164,9 +165,11 @@
 
     </aside>
     <!-- aside end -->
-    <div class="content-wrapper">
 
+    <div class="content-wrapper" id="pjax-container" style="background-color: #F2F2F2;">
     </div>
+
+
     <!-- content-wrapper end -->
     <footer class="main-footer">
         <strong>
@@ -188,15 +191,20 @@
 <script src="common/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="common/js/adminlte.min.js"></script>
 <script src="common/plugins/layer/layer.js"></script>
+<script src="common/plugins/jquery-pjax/pjax.js"></script>
 
 </body>
 <script type="text/javascript">
     var jq = $
     jq(document).ready(function () {
+        var adminAccessToken = localStorage.getItem('admin_access_token')
+        if (adminAccessToken === null) {
+            window.location.href = 'login.html'
+            return
+        }
         //退出
         jq("#sign-out").on("click", function () {
             var url = "http://127.0.0.1:9501/admin/v1/admin/logout"
-            var adminAccessToken = localStorage.getItem('admin_access_token')
             jq.ajax({
                 url: url,
                 data: {"admin_access_token": adminAccessToken},
@@ -214,11 +222,37 @@
                         time: 2000,
                         icon: 1
                     }, function () {
+                        localStorage.removeItem('admin_access_token')
                         jq(location).attr("href", "login.html")
                     })
                 }
             })
         })
+        //退出 end
     })
+    //jq.ready end
+
+    //pjax start
+    jq('li.menu-item').on('click', function () {
+        var url = jq(this).attr('attr')
+        jq.pjax({
+            url: url,
+            container: '#pjax-container',
+            push: false,
+            fragment: '#pjax-content'
+        })
+    })
+    var pjaxLoadIndex
+    jq(document).on('pjax:send', function () {
+        pjaxLoadIndex = layer.load(2)
+    })
+
+    jq(document).on('pjax:complete', function () {
+        layer.close(pjaxLoadIndex)
+    })
+    jq(document).on('pjax:timeout', function (event) {
+        event.preventDefault()
+    })
+    //pjax end
 </script>
 </html>

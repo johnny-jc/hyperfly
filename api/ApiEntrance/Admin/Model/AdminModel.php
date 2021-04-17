@@ -5,8 +5,10 @@ namespace Api\ApiEntrance\Admin\Model;
 
 use Api\ApiActiveRecord\AdminActiveRecord;
 use Api\ApiBase\BaseModel;
+use Api\ApiTool\Exception\ApiException;
 use Hyperf\Redis\Redis;
 use Hyperf\Utils\ApplicationContext;
+use Hyperf\Utils\Coroutine;
 
 /**
  * Class AdminModel
@@ -14,34 +16,45 @@ use Hyperf\Utils\ApplicationContext;
  */
 class AdminModel extends BaseModel
 {
+    /**
+     * access_token过期时间
+     * 默认一周
+     */
+    const ADMIN_ACCESS_TOKEN_TTL = 7 * 24 * 60 * 60;
 
     /**
      * @param array $data
      * @return array|bool
      */
-    public static function login(array $data = [])
+    public function login(array $data = [])
     {
+        //检验账号是否存在
         $model = AdminActiveRecord::query()->where('username', $data['username'])->first();
         if ($model === null) {
-            return false;
+            return $this->setModelError('账号不存在');
         }
-        $md5String = (string)time() . $data['username'];
-        $accessToken = md5($md5String);
-
-        //账号密码验证失败返回false
+        //检验密码是否正确
         if (!password_verify($data['password'], $model->password)) {
-            return false;
+            return $this->setModelError('密码错误');
         }
-
-        //如果成功，更新access_token并且更新时间
+        //如果检验成功，更新数据库access_token以及过期时间
+        $accessToken = md5((string)time() . $data['username']);
         $model->access_token = $accessToken;
-        $model->access_token_expire_time = date('Y-m-d H:i:s', time() + 7 * 24 * 60 * 60);
+        $model->access_token_expire_time = date('Y-m-d H:i:s', time() + self::ADMIN_ACCESS_TOKEN_TTL);
         if (!$model->save()) {
-            return false;
+            return $this->setModelError('登录失败，请联系管理员');
         }
-
-        //设置缓存、清空旧缓存、更新有效时间
-        self::setAccessTokenCache($model->toArray());
+        //清空旧缓存
+        $this->deleteAccessTokenCache($accessToken);
+        //设置新缓存
+        $adminInfo = json_encode($model->toArray());
+        if (!$this->setAccessTokenCache($accessToken, $adminInfo)) {
+            throw new ApiException('登录失败');
+        }
+        //更新缓存过期时间
+        if (!$this->refreshAccessToken($accessToken)) {
+            throw new ApiException('登录失败');
+        }
 
         $modelArray = $model->toArray();
         unset($modelArray['password']);
@@ -54,20 +67,35 @@ class AdminModel extends BaseModel
     }
 
     /**
-     * 设置access_token缓存
-     * @param array $user
+     * @param string $accessToken
+     * @param string $adminInfo
+     * @return bool
      */
-    private static function setAccessTokenCache(array $user)
+    private function setAccessTokenCache(string $accessToken, string $adminInfo)
     {
-        $container = ApplicationContext::getContainer();
-        $redis = $container->get(Redis::class);
-        $accessTokenRedisKey = $user['access_token'];
-        //清空旧缓存
-        $redis->del($accessTokenRedisKey);
-        //设置access_token缓存并更新缓存时间
-        unset($user['password']);
-        $redis->set($accessTokenRedisKey, json_encode($user));
-        $redis->expire($accessTokenRedisKey, 7 * 24 * 60 * 60);
+        return $this->redis->set($accessToken, $adminInfo);
+    }
+
+    /**
+     * @param string $accessToken
+     * @return bool
+     */
+    private function deleteAccessTokenCache(string $accessToken): bool
+    {
+        $this->redis->del($accessToken);
+        return true;
+    }
+
+    /**
+     * @param string $accessToken
+     * @return bool
+     */
+    private function refreshAccessToken(string $accessToken): bool
+    {
+        if ($this->redis->exists($accessToken) === 0) {
+            return false;
+        }
+        return ($this->redis->expire($accessToken, self::ADMIN_ACCESS_TOKEN_TTL));
     }
 
     /**

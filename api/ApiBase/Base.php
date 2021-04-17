@@ -5,9 +5,11 @@ namespace Api\ApiBase;
 
 use Api\ApiCore\ApiAbstract;
 
-use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Contract\ResponseInterface;
+use Hyperf\Redis\Redis;
+
+use Hyperf\Di\Annotation\Inject;
 
 /**
  * Class ApiBase
@@ -20,13 +22,19 @@ class Base extends ApiAbstract
      * @Inject
      * @var ResponseInterface
      */
-    protected $response;
+    public $response;
 
     /**
      * @Inject
      * @var RequestInterface
      */
-    protected $request;
+    public $request;
+
+    /**
+     * @Inject
+     * @var Redis
+     */
+    public $redis;
 
     /**
      * @param array $data

@@ -14,5 +14,6 @@ return [
         Api\ApiTool\Middleware\CorsMiddleware::class,
         Api\ApiTool\Middleware\RequestMethodAllowedMiddleware::class,
         Api\ApiTool\Middleware\AuthMiddleware::class,
+        Api\ApiTool\Middleware\FormatResponseMiddleware::class,
     ],
 ];

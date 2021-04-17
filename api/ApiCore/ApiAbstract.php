@@ -10,6 +10,22 @@ namespace Api\ApiCore;
 abstract class ApiAbstract implements ApiRequestResultInterface, ApiActionResultInterface
 {
     /**
+     * 统一的返回的状态码
+     * 200
+     */
+    const RESPONSE_STATUS_CODE = 200;
+
+    /**
+     * 允许返回的接口参数
+     */
+    const ALLOWED_RESPONSE_KEYS = ['code', 'message', 'data', 'type'];
+
+    /**
+     * data参数转化为对象格式需要的key值
+     */
+    const DATA_OBJECT_FLAG = 'result';
+
+    /**
      * 设置默认的请求成功接口返回数据
      * 强制在data为空数据的时候，类型为对象
      * 避免在JS/iOS/Android或者其他端解析数据时，格式不一致

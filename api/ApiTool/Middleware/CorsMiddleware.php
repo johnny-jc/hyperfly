@@ -14,7 +14,7 @@ use Psr\Http\Server\RequestHandlerInterface;
  * Class CorsMiddleware
  * @package Api\ApiTool
  */
-class CorsMiddleware implements MiddlewareInterface
+class CorsMiddleware extends Base implements MiddlewareInterface
 {
     /**
      * @param ServerRequestInterface $request
@@ -24,14 +24,40 @@ class CorsMiddleware implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $response = Context::get(ResponseInterface::class);
-        $response = $response->withHeader('Access-Control-Allow-Origin', '*')
-            ->withHeader('Access-Control-Allow-Credentials', true)
-            ->withHeader('Access-Control-Allow-Headers', 'DNT,Keep-Alive,User-Agent,Cache-Control,Content-Type,Authentication')
-            ->withStatus(200);
+        $response = $this->setCorsHeaders($response);
+        $response = $this->setCorsStatus($response);
         Context::set(ResponseInterface::class, $response);
-        if ($request->getMethod() == 'OPTIONS') {
+        if (strtolower($request->getMethod()) == 'options') {
             return $response;
         }
         return $handler->handle($request);
     }
+
+    /**
+     * @param ResponseInterface $response
+     * @return ResponseInterface
+     */
+    private function setCorsHeaders(ResponseInterface $response)
+    {
+        $headers = [
+            'Access-Control-Allow-Origin' => '*',
+            'Access-Control-Allow-Credentials' => true,
+            'Access-Control-Allow-Headers' => 'DNT,Keep-Alive,User-Agent,Cache-Control,Content-Type,Authentication',
+        ];
+        foreach ($headers as $k => $v) {
+            $response = $response->withHeader($k, $v);
+        }
+
+        return $response;
+    }
+
+    /**
+     * @param ResponseInterface $response
+     * @return ResponseInterface
+     */
+    private function setCorsStatus(ResponseInterface $response)
+    {
+        return $response->withStatus(self::RESPONSE_STATUS_CODE);
+    }
+
 }

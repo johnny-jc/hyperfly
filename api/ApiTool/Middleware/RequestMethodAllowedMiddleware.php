@@ -27,8 +27,7 @@ class RequestMethodAllowedMiddleware extends Base implements MiddlewareInterface
             return $handler->handle($request);
         }
         //TODO 记录日志
-        return $this->requestFail('请求方法不允许');
-        //return $this->response->json($this->requestFail('请求方式不允许'));
+        return $this->requestFail('请求方式不允许');
     }
 
 }

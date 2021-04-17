@@ -119,19 +119,18 @@ class AuthMiddleware extends Base implements MiddlewareInterface
             return false;
         }
         return $authentication[0];
-    }
 
-    /**
-     * @param string $authenticationCode
-     * @return bool
-     */
-    private function hasAuth(string $authenticationCode): bool
-    {
-        //校验授权码
-        $container = ApplicationContext::getContainer();
-        $redis = $container->get(Redis::class);
-        $exists = $redis->exists($authenticationCode);
-        return $exists === 0 ? false : true;
+        /**
+         * @param string $authenticationCode
+         * @return bool
+         */
+        private
+        function hasAuth(string $authenticationCode): bool
+        {
+            //校验授权码
+            $container = ApplicationContext::getContainer();
+            $redis = $container->get(Redis::class);
+            $exists = $redis->exists($authenticationCode);
+            return $exists === 0 ? false : true;
+        }
     }
-
-}

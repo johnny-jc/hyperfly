@@ -3,7 +3,6 @@
 /runtime
 /test
 #file
-composer.lock
 deploy.test.yml
 Dockerfile
 phpstan.neon

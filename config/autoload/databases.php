@@ -30,7 +30,7 @@ return [
         ],
         'commands' => [
             'gen:model' => [
-                'path' => 'app/Model',
+                'path' => 'api/ApiActiveRecord',
                 'force_casts' => true,
                 'inheritance' => 'Model',
             ],

@@ -1,0 +1,152 @@
+<?php
+
+declare (strict_types=1);
+namespace Api\ApiEntrance\Admin\v1\Controller;
+
+use Api\ApiBase\BaseController;
+use Api\ApiEntrance\Admin\Model\PermissionModel;
+use Api\ApiEntrance\Admin\Model\RoleModel;
+use Api\ApiEntrance\Admin\Model\RolePermissionModel;
+use Hyperf\HttpServer\Annotation\RequestMapping;
+use Hyperf\HttpServer\Annotation\Controller;
+use Hyperf\Di\Annotation\Inject;
+/**
+ * 角色权限管理控制器
+ * Class RolePermissionController
+ * @Controller(prefix="Admin/v1/RolePermission")
+ * @package Api\ApiEntrance\Admin\v1\Controller
+ */
+class RolePermissionController extends BaseController
+{
+    use \Hyperf\Di\Aop\ProxyTrait;
+    use \Hyperf\Di\Aop\PropertyHandlerTrait;
+    function __construct()
+    {
+        if (method_exists(parent::class, '__construct')) {
+            parent::__construct(...func_get_args());
+        }
+        $this->__handlePropertyHandler(__CLASS__);
+    }
+    /**
+     * @Inject
+     * @var PermissionModel
+     */
+    private $permissionModel;
+    /**
+     * @Inject
+     * @var RolePermissionModel
+     */
+    private $rolePermissionModel;
+    /**
+     * @Inject
+     * @var PermissionController
+     */
+    private $permissionController;
+    /**
+     * @Inject
+     * @var RoleModel
+     */
+    private $roleModel;
+    /**
+     * 删除权限
+     * @RequestMapping(path="deleteRolePermission", method="post")
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function deleteRolePermission()
+    {
+        $rules = ['roleId' => ['required', 'exists:' . $this->roleModel->getTable() . ',id'], 'apiRoutes' => ['required']];
+        $message = [
+            //role id
+            'roleId.required' => '参数:attribute不存在',
+            'roleId.exists' => '参数:attribute的值不存在',
+            //apiRoutes
+            'apiRoutes.required' => '参数:attribute不存在',
+        ];
+        $validate = $this->validator($this->request->all(), $rules, $message);
+        if ($validate->fails()) {
+            return $this->fail($validate->errors()->first());
+        }
+        $requestData = $this->request->all();
+        $roleId = (int) $requestData['roleId'];
+        $apiRoutes = json_decode($requestData['apiRoutes'], true);
+        if (empty($apiRoutes)) {
+            return $this->success();
+        }
+        return $this->rolePermissionModel->deleteRolePermission($roleId, $apiRoutes) ? $this->success() : $this->fail($this->rolePermissionModel->getModelError());
+    }
+    /**
+     * 分配权限
+     * @RequestMapping(path="assignRolePermission", method="post")
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function assignRolePermission()
+    {
+        $rules = ['roleId' => ['required', 'exists:' . $this->roleModel->getTable() . ',id'], 'apiRoutes' => ['required']];
+        $message = [
+            //role id
+            'roleId.required' => '参数:attribute不存在',
+            'roleId.exists' => '参数:attribute的值不存在',
+            //apiRoutes
+            'apiRoutes.required' => '参数:attribute不存在',
+        ];
+        $validate = $this->validator($this->request->all(), $rules, $message);
+        if ($validate->fails()) {
+            return $this->fail($validate->errors()->first());
+        }
+        $requestData = $this->request->all();
+        $roleId = (int) $requestData['roleId'];
+        $apiRoutes = json_decode($requestData['apiRoutes'], true);
+        if (empty($apiRoutes)) {
+            return $this->success();
+        }
+        return $this->rolePermissionModel->assignRolePermission($roleId, $apiRoutes) ? $this->success() : $this->fail($this->rolePermissionModel->getModelError());
+    }
+    /**
+     * 获取未分配权限以及已分配权限
+     * @RequestMapping(path="getRolePermission", method="post")
+     * @return mixed|\Psr\Http\Message\ResponseInterface
+     */
+    public function getRolePermission()
+    {
+        $roleId = $this->request->input('roleId');
+        if ($roleId === null) {
+            return $this->fail('参数roleId不存在');
+        }
+        $condition = $this->request->all();
+        if (!isset($condition['apiEntrance']) || empty($condition['apiEntrance'])) {
+            $condition['apiEntrance'] = $this->permissionController->getApiEntrance();
+        }
+        if (!isset($condition['apiVersion']) || empty($condition['apiVersion'])) {
+            $condition['apiVersion'] = $this->permissionController->getApiVersion();
+        }
+        $condition['apiClass'] = $condition['apiClass'] ?? '';
+        $condition['apiFunction'] = $condition['apiFunction'] ?? '';
+        $allPermission = $this->permissionModel->getAllPermission($condition);
+        $rolePermission = $this->rolePermissionModel->getRolePermission(['id' => $roleId]);
+        $returnData = ['rolePermission' => $rolePermission, 'noAssignPermission' => $this->getNoAssignPermission($allPermission, $rolePermission)];
+        return $this->success($returnData);
+    }
+    /**
+     * 获取未分配的权限
+     * @param array $allPermission
+     * @param array $rolePermission
+     * @return array
+     */
+    private function getNoAssignPermission(array $allPermission, array $rolePermission)
+    {
+        $allPermissionArr = [];
+        $rolePermissionArr = [];
+        foreach ($allPermission as $k => $v) {
+            $allPermissionArr[$v['api_route']] = $v;
+        }
+        foreach ($rolePermission as $k => $v) {
+            $rolePermissionArr[$v['api_route']] = $v;
+        }
+        $diff = array_diff_key($allPermissionArr, $rolePermissionArr);
+        $noAssignPermission = [];
+        foreach ($diff as $k => $v) {
+            $noAssignPermission[] = $v;
+        }
+        return $noAssignPermission;
+    }
+}

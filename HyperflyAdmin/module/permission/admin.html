@@ -1,0 +1,641 @@
+<link rel="stylesheet" href="../../static/plugins/jquery-pagination/pagination.css">
+<link rel="stylesheet" href="../../static/plugins/jquery-icheck/skins/all.css">
+
+<div id="pjax-content">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">管理员管理</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">首页</a></li>
+                        <li class="breadcrumb-item active">管理员管理</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+
+        <!-- content-header -->
+        <div class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-9">
+                                    <div class="form-inline">
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <input type="text" id="search-admin-id" class="form-control"
+                                                   placeholder="ID">
+
+                                            <input type="text" id="search-admin-username" class="form-control"
+                                                   placeholder="账号">
+                                        </div>
+                                        <button id="search-btn" class="btn btn-primary mb-2">搜索</button>
+                                        <button id="reset-search-btn" class="btn btn-primary mb-2 mx-sm-2">重置
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-3">
+                                    <button type="button" id="create-admin-btn"
+                                            class="btn btn-primary btn-sm float-right">
+                                        添加管理员
+                                    </button>
+                                    <button type="button" id="refresh-table-data-btn"
+                                            class="btn btn-primary btn-sm float-right mx-sm-2">
+                                        <span class="fa fa-sync-alt"></span>
+                                        刷新
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="dataTables_wrapper dt-bootstrap4"></div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table table-bordered table-hover dataTable dtr-inline" role="grid">
+                                        <thead>
+                                        <tr role="row">
+                                            <th>ID</th>
+                                            <th>账号</th>
+                                            <th>添加时间</th>
+                                            <th>状态</th>
+                                            <th>更新时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody id="table-data">
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-md-5">
+                                    <div class="dataTables_info" id="example2_info" role="status" aria-live="polite">
+                                        总共&nbsp;<b><span id="total-count">/</span></b>&nbsp;条&nbsp;<b><span
+                                            id="total-page">/
+                                    </span></b>
+                                        &nbsp;页数据，当前显示第<b>&nbsp;<span id="total-cur-page">/</span> &nbsp;</b>页数据
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-md-7">
+                                    <div class="dataTables_paginate float-right">
+                                        <div id="pagination"></div>
+                                    </div>
+                                    <!-- pagination end -->
+                                </div>
+                            </div>
+                            <!-- row end -->
+                        </div>
+                        <!--card body end -->
+                    </div>
+                    <!-- card end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content -->
+    <!-- update admin modal start -->
+    <div class="modal fade" id="update-admin-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">更新管理员数据</h5>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="hidden-admin-id">
+                    <div class="form-group">
+                        <label>账号</label>
+                        <input type="text" class="form-control" id="update-admin-username">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" class="form-control" id="update-admin-password">
+                    </div>
+                    <div class="form-group">
+                        <label>重复密码</label>
+                        <input type="password" class="form-control" id="update-admin-repeat-password">
+                    </div>
+                    <div class="form-group">
+                        <label>状态</label>
+                        <div id="update-admin-status-div"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="submit-update-admin-btn">保存</button>
+                    <button type="button" class="btn btn-secondary" id="close-update-admin-modal-btn">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- update admin modal end -->
+
+    <!-- view admin modal start -->
+    <div class="modal fade" id="view-admin-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">查看详情</h5>
+                    <button type="button" class="btn btn-default btn-sm float-right" id="close-view-admin-modal-btn">关闭
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>ID</label>
+                        <input type="text" disabled class="form-control" id="view-admin-id">
+                    </div>
+                    <div class="form-group">
+                        <label>账号</label>
+                        <input type="text" disabled class="form-control" id="view-admin-username">
+                    </div>
+                    <div class="form-group">
+                        <label>添加时间</label>
+                        <input type="text" disabled class="form-control" id="view-admin-create-time">
+                    </div>
+                    <div class="form-group">
+                        <label>更新时间</label>
+                        <input type="text" disabled class="form-control" id="view-admin-update-time">
+                    </div>
+                    <div class="form-group">
+                        <label>状态</label>
+                        <input type="text" disabled class="form-control" id="view-admin-status">
+                    </div>
+                    <div class="form-group">
+                        <label>授权码</label>
+                        <input type="text" disabled class="form-control" id="view-admin-access-token">
+                    </div>
+                    <div class="form-group">
+                        <label>授权码过期时间</label>
+                        <input type="text" disabled class="form-control" id="view-admin-access-token-expire-time">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- view admin modal end -->
+
+    <!-- create admin modal start -->
+    <div class="modal fade" id="create-admin-modal">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">添加管理员</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>账号</label>
+                        <input type="text" class="form-control" id="create-admin-username">
+                    </div>
+                    <div class="form-group">
+                        <label>密码</label>
+                        <input type="password" class="form-control" id="create-admin-password">
+                    </div>
+                    <div class="form-group">
+                        <label>再次输入密码</label>
+                        <input type="password" class="form-control" id="create-admin-repeat-password">
+                    </div>
+                    <div class="form-group">
+                        <label>状态</label>
+                        <input type="radio" name="create-admin-status" checked value="1">正常
+                        <input type="radio" name="create-admin-status" value="0">禁用
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="submit-create-admin-btn">添加</button>
+                    <button type="button" class="btn btn-secondary" id="close-create-admin-modal-btn">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- create admin modal end -->
+    <script type="text/javascript" src="../../static/plugins/jquery-pagination/pagination.js"></script>
+    <script type="text/javascript" src="../../static/plugins/jquery-icheck/icheck.js"></script>
+    <script type="text/javascript">
+        jq(document).ready(function () {
+
+            //提交更新管理员数据 start
+            jq('#submit-update-admin-btn').on('click', function () {
+                var adminId = jq('#hidden-admin-id').val()
+                var username = jq('#update-admin-username').val()
+                var password = jq('#update-admin-password').val()
+                var repeatPassword = jq('#update-admin-repeat-password').val()
+                var status = jq('input[name="update-admin-status"]:checked').val()
+
+                var data = {}
+
+                if (username.length === 0) {
+                    return layerWarning('请填写账号')
+                }
+                if (username.length < 4 || username.length > 16) {
+                    return layerWarning('账号只能是4-16位字符')
+                }
+                var reg = /^[0-9a-zA-Z_]*$/
+                if (!reg.test(username)) {
+                    return layerWarning('账号只能是数字字母下划线组成')
+                }
+                if (password.length !== 0) {
+                    if (password.length < 6 || password.length > 16) {
+                        return layerWarning('密码长度只能是6-16位字符')
+                    }
+                    var reg = /^[0-9a-zA-Z]*$/
+                    if (!reg.test(password)) {
+                        return layerWarning('密码只能是数字字母')
+                    }
+                    if (repeatPassword.length === 0) {
+                        return layerWarning('请再次输入密码')
+                    }
+                    if (password !== repeatPassword) {
+                        return layerWarning('两次密码不一致')
+                    }
+                    data.password = password
+                }
+                if (status !== '0' && status !== '1') {
+                    return layerWarning('状态值只能是正常或者禁用')
+                }
+                data.id = adminId
+                data.username = username
+                data.status = status
+                updateAdminAjax(data)
+            })
+            var updateAdminAjax = function (data) {
+                var url = getRequestUrl('/Admin/v1/Admin/updateAdminById')
+                openLoad()
+                ajaxPost(url, data, function (response) {
+                    closeLoad()
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        layerSuccess(getResponseMessage(response), function () {
+                            jq('#update-admin-modal').modal('hide')
+                            tableDataPagination()
+                        })
+                    }
+                    handleUnSuccess(response)
+                })
+            }
+            //提交更新管理员数据 end
+
+            //更新管理员 start
+            jq('#table-data').on('click', '.update-admin-btn', function () {
+                var adminId = jq(this).parents('tr').attr('attrId')
+                getAdminAjax(adminId, 'update')
+                jq('#update-admin-modal').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                })
+                jq('#update-admin-modal').modal('show')
+            })
+            jq('#close-update-admin-modal-btn').on('click', function () {
+                jq('#update-admin-modal').modal('hide')
+            })
+            //更新管理员 end
+
+            //查看详情 start
+            var getAdminAjax = function (adminId, type) {
+                var url = getRequestUrl('/Admin/v1/Admin/getAdminDetailById')
+                openLoad()
+                ajaxPost(url, {id: adminId}, function (response) {
+                        closeLoad()
+                        if (isResponseSuccess(getResponseCode(response))) {
+                            var data = getResponseData(response)
+                            jq('#hidden-admin-id').val(data.id)
+                            if (type == 'view') {
+
+                                jq('#view-admin-id').val(data.id)
+                                jq('#view-admin-username').val(data.username)
+                                jq('#view-admin-create-time').val(data.create_time)
+                                jq('#view-admin-update-time').val(data.update_time)
+                                if (data.status == 1) {
+                                    jq('#view-admin-status').addClass('text-primary')
+                                    jq('#view-admin-status').removeClass('text-gray')
+                                    jq('#view-admin-status').val('正常')
+                                }
+                                if (data.status == 0) {
+                                    jq('#view-admin-status').addClass('text-gray')
+                                    jq('#view-admin-status').removeClass('text-primary')
+                                    jq('#view-admin-status').val('禁用')
+                                }
+                                jq('#view-admin-access-token').val(data.access_token)
+                                jq('#view-admin-access-token-expire-time').val(data.access_token_expire_time)
+                            }
+                            if (type == 'update') {
+
+                                //设置更新管理员数据
+                                jq('#update-admin-username').val(data.username)
+                                var iRadioStr = ''
+                                if (data.status == 0) {
+                                    iRadioStr +=
+                                        '<input value="1" class="update-admin-status" type="radio" name="update-admin-status">'
+                                    iRadioStr += '<label class="text-primary">正常</label>'
+                                    iRadioStr +=
+                                        '<input value="0" class="update-admin-status" checked type="radio" name="update-admin-status">'
+                                    iRadioStr += '<label class="text-gray">禁用</label>'
+                                } else {
+                                    iRadioStr +=
+                                        '<input value="1" class="update-admin-status" checked type="radio" name="update-admin-status">'
+                                    iRadioStr += '<label class="text-primary">正常</label>'
+                                    iRadioStr +=
+                                        '<input value="0" class="update-admin-status" type="radio" name="update-admin-status">'
+                                    iRadioStr += '<label class="text-gray">禁用</label>'
+                                }
+                                jq('#update-admin-status-div').html(iRadioStr)
+                                jq('.update-admin-status').iCheck({
+                                    radioClass: 'iradio_square-blue'
+                                })
+                            }
+                        }
+                        handleUnSuccess(response)
+                    }
+                )
+            }
+            jq('#table-data').on('click', '.view-admin-detail-btn', function () {
+                var adminId = jq(this).parents('tr').attr('attrId')
+                getAdminAjax(adminId, 'view')
+                jq('#view-admin-modal').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                })
+                jq('#view-admin-modal').modal('show')
+            })
+            jq('#close-view-admin-modal-btn').on('click', function () {
+                jq('#view-admin-modal').modal('hide')
+            })
+            //查看详情 end
+
+            //更新管理员状态 start
+            var updateAdminStatusAjax = function (data) {
+                var url = getRequestUrl('/Admin/v1/Admin/updateAdminStatusById')
+                openLoad()
+                ajaxPost(url, data, function (response) {
+                    closeLoad()
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        layerSuccess(getResponseMessage(response), function () {
+                            tableDataPagination()
+                        })
+                    }
+                    handleUnSuccess(response)
+                })
+            }
+            jq('#table-data').on('ifChecked', 'input.input-admin-list', function (event) {
+                var adminId = jq(this).parents('tr').attr('attrId')
+                var value = event.target.value
+                var data = {id: adminId, status: value}
+                updateAdminStatusAjax(data)
+            })
+            //更新管理员状态 end
+
+            //添加管理员 start
+            var createAdminAjax = function (data) {
+                var url = getRequestUrl('/Admin/v1/Admin/createAdmin')
+                openLoad()
+                ajaxPost(url, data, function (response) {
+                    closeLoad()
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        layerSuccess(getResponseMessage(response), function () {
+                            jq('#create-admin-modal').modal('hide')
+                            tableDataPagination()
+                        })
+                    }
+                    handleUnSuccess(response, function () {
+                        jq('#create-admin-username').val(data.username)
+                        jq('#create-admin-password').val(data.password)
+                        jq('#create-admin-repeat-password').val(data.repeatPassword)
+                    })
+                })
+
+            }
+            jq('#submit-create-admin-btn').on('click', function () {
+                var username = jq('#create-admin-username').val()
+                var password = jq('#create-admin-password').val()
+                var repeatPassword = jq('#create-admin-repeat-password').val()
+                var status = jq('input[name="create-admin-status"]:checked').val()
+                var data = {}
+                if (username.length === 0) {
+                    return layerWarning('请填写账号')
+                }
+                if (username.length < 4 || username.length > 16) {
+                    return layerWarning('账号只能是4-14个字符')
+                }
+                var reg = /^[0-9a-zA-Z_]*$/
+                if (!reg.test(username)) {
+                    return layerWarning('账号必须是数字字母下划线')
+                }
+                if (password.length === 0) {
+                    return layerWarning('请填写密码')
+                }
+                if (password.length < 6 || password.length > 16) {
+                    return layerWarning('密码长度必须是6-16个字符')
+                }
+                var reg = /^[0-9a-zA-Z]*$/
+                if (!reg.test(password)) {
+                    return layerWarning('密码只能是数字字母')
+                }
+                if (repeatPassword.length === 0) {
+                    return layerWarning('请再次输入密码')
+                }
+                if (password !== repeatPassword) {
+                    return layerWarning('两次密码不一致')
+                }
+                if (status !== '0' && status !== '1') {
+                    return layerWarning('状态值只能是正常或者禁用')
+                }
+                data.username = username
+                data.password = password
+                data.status = status
+                jq('#crate-admin-username').val('')
+                jq('#create-admin-password').val('')
+                jq('#create-admin-repeat-password').val('')
+                createAdminAjax(data)
+            })
+            //添加管理员 end
+
+            //icheck start
+            jq('input[name="create-admin-status"]').iCheck({
+                radioClass: 'iradio_square-blue',
+            })
+            //icheck end
+
+            //打开添加管理员modal start
+            jq('#create-admin-btn').on('click', function () {
+                jq('#create-admin-modal').modal({
+                    backdrop: 'static',
+                    keyboard: false,
+                })
+                jq('#create-admin-modal').modal('show')
+            })
+            jq('#close-create-admin-modal-btn').on('click', function () {
+                jq('#create-admin-modal').modal('hide')
+            })
+            //打开添加管理员modal end
+
+            //获取分页 start
+            var tableDataPagination = function () {
+                var url = getRequestUrl('/Admin/v1/Admin/getAdminList')
+                jq('#pagination').pagination({
+                    pageRange: 2,
+                    className: 'paginationjs-theme-blue paginationjs-big',
+                    pageSize: 20,
+                    showFirstOnEllipsisShow: true,
+                    showLastOnEllipsisShow: true,
+                    callback: function (data, pagination) {
+                        var count = pagination.totalNumber
+                        var pageNumber = pagination.pageNumber
+                        var pageSize = pagination.pageSize
+                        var offset = (pageNumber - 1) * pageSize
+                        var limit = pageSize
+
+                        //设置统计数据 start
+                        jq('#total-count').text(count)
+                        jq('#total-page').text(Math.ceil(count / pageSize))
+                        jq('#total-cur-page').text(pageNumber)
+                        //设置统计数据 end
+
+                        var username = jq('#search-admin-username').val()
+                        var id = jq('#search-admin-id').val()
+                        var data = {}
+                        data.username = username
+                        data.id = id
+                        data.offset = offset
+                        data.limit = limit
+
+                        openLoad()
+                        ajaxPost(url, data, function (response) {
+                            closeLoad()
+                            if (isResponseSuccess(getResponseCode(response))) {
+                                var listHtml = ''
+                                var listDataObj = response.data.list
+                                var listDataObjLen = Object.keys(listDataObj).length
+                                for (var i = 0; i < listDataObjLen; i++) {
+                                    var adminId = listDataObj[i].id
+                                    var iRadioStr = ''
+                                    if (listDataObj[i].status == 0) {
+                                        iRadioStr +=
+                                            '<input value="1" class="input-admin-list" type="radio" name="list-admin-status-' + adminId + '">'
+                                        iRadioStr += '<label class="text-primary">正常</label>'
+                                        iRadioStr +=
+                                            '<input value="0" class="input-admin-list" checked type="radio" name="list-admin-status-' + adminId + '">'
+                                        iRadioStr += '<label class="text-gray">禁用</label>'
+                                    } else {
+                                        iRadioStr +=
+                                            '<input value="1" class="input-admin-list" checked type="radio" name="list-admin-status-' + adminId + '">'
+                                        iRadioStr += '<label class="text-primary">正常</label>'
+                                        iRadioStr +=
+                                            '<input value="0" class="input-admin-list" type="radio" name="list-admin-status-' + adminId +
+                                            '">'
+                                        iRadioStr += '<label class="text-gray">禁用</label>'
+                                    }
+                                    listHtml += '<tr attrId="' + adminId + '">'
+                                    listHtml += '<td style="width:5%">'
+                                    listHtml += listDataObj[i].id
+                                    listHtml += '</td>'
+                                    listHtml += '<td style="width:20%">'
+                                    listHtml += listDataObj[i].username
+                                    listHtml += '</td>'
+                                    listHtml += '<td style="width:25%">'
+                                    listHtml += listDataObj[i].create_time
+                                    listHtml += '</td>'
+                                    listHtml += '<td style="width:10%">'
+                                    listHtml += iRadioStr
+                                    listHtml += '</td>'
+                                    listHtml += '<td style="width:25%">'
+                                    listHtml += listDataObj[i].update_time
+                                    listHtml += '</td>'
+                                    listHtml += '<td>'
+                                    listHtml +=
+                                        '<a title="查看" class="btn btn-primary btn-xs view-admin-detail-btn" href="javascript:void(0)">'
+                                    listHtml += '<span class="fa fa-eye"></span>'
+                                    listHtml += '</a>'
+                                    listHtml +=
+                                        '<a title="删除" class="btn btn-primary btn-xs mx-sm-2 delete-admin-btn" href="javascript:void(0)">'
+                                    listHtml += '<span class="fa fa-trash"></span>'
+                                    listHtml += '</a>'
+                                    listHtml +=
+                                        '<a title="编辑" class="btn btn-primary btn-xs update-admin-btn" href="javascript:void(0)">'
+                                    listHtml += '<span class="fa fa-edit"></span>'
+                                    listHtml += '</a>'
+                                    listHtml += '</td>'
+                                    listHtml += '</tr>'
+                                }
+                                jq('#table-data').html(listHtml)
+                                jq('input.input-admin-list').iCheck({
+                                    radioClass: 'iradio_square-blue'
+                                })
+                            }
+
+                            handleUnSuccess(response)
+                        })
+                    },
+
+                    dataSource: function (done) {
+                        var username = jq('#search-admin-username').val()
+                        var id = jq('#search-admin-id').val()
+                        var data = {}
+                        data.username = username
+                        data.id = id
+                        openLoad()
+                        ajaxPost(url, data, function (response) {
+                            closeLoad()
+                            var listArr = []
+                            if (isResponseSuccess(getResponseCode(response))) {
+                                for (var i = 0; i < response.data.count; i++) {
+                                    listArr.push(i)
+                                }
+                                done(listArr)
+                            }
+                            handleUnSuccess(response)
+                        })
+                    },
+                })
+            }
+            tableDataPagination()
+            //获取分页 end
+
+            //刷新 start
+            jq('#refresh-table-data-btn').on('click', function () {
+                tableDataPagination()
+            })
+            //刷新 end
+
+            //搜索 start
+            jq('#search-btn').on('click', function () {
+                tableDataPagination()
+            })
+            //搜索 end
+
+            //重置 start
+            jq('#reset-search-btn').on('click', function () {
+                jq('#search-admin-username').val('')
+                jq('#search-admin-id').val('')
+                tableDataPagination()
+            })
+            //重置 end
+
+            //删除 start
+            var deleteAdminAjax = function (adminId) {
+                var url = getRequestUrl('/Admin/v1/Admin/deleteAdminById')
+                openLoad()
+                ajaxPost(url, {id: adminId}, function (response) {
+                    closeLoad()
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        layerSuccess(getResponseMessage(response), function () {
+                            tableDataPagination()
+                        })
+                    }
+                    handleUnSuccess(response)
+                })
+            }
+            jq('#table-data').on('click', 'a.delete-admin-btn', function () {
+                var adminId = jq(this).parents('tr').attr('attrId')
+                layer.confirm('确定删除?', {
+                    btn: ['确定', '取消'],
+                }, function () {
+                    deleteAdminAjax(adminId)
+                })
+            })
+            //删除 end
+
+        })
+    </script>
+</div>

@@ -12,8 +12,8 @@ declare(strict_types=1);
 return [
     'handler' => [
         'http' => [
-            Api\ApiTool\Exception\ApiException::class,
-            Api\ApiTool\ExceptionHandler\ApiExceptionHandler::class,
+            Api\ApiService\Exception\ApiException::class,
+            Api\ApiService\ExceptionHandler\ApiExceptionHandler::class,
         ],
     ],
 ];

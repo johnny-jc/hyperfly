@@ -1,0 +1,453 @@
+<link rel="stylesheet" href="../../static/plugins/select2/css/select2.css">
+<link rel="stylesheet" href="../../static/plugins/jquery-pagination/pagination.css">
+<link rel="stylesheet" href="../../static/plugins/jquery-icheck/skins/all.css">
+
+<div id="pjax-content">
+    <input type="hidden" id="table-data-type" value="reset">
+    <input type="hidden" id="refresh-child-menu-id" value="0">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">权限分配管理</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">首页</a></li>
+                        <li class="breadcrumb-item active">权限分配管理</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+
+        <!-- content-header -->
+        <div class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-2">
+                                    <div class="form-inline">
+                                        <div class="form-group mx-sm-3 mb-2" style="width:250px;">
+                                            <select class="form-control" id="select-assign-role"
+                                                    style="width:100%;">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-inline">
+                                        <input id="search-api-app" type="text" style="width: 20%"
+                                               placeholder="应用入口[默认Admin]">
+                                        <input id="search-api-version" type="text" style="width: 20%"
+                                               placeholder="接口版本[默认v1]">
+                                        <input id="search-api-class" type="text" style="width: 15%"
+                                               placeholder="接口类">
+                                        <input id="search-api-function" type="text" style="width: 15%;"
+                                               placeholder="接口函数">
+                                        <button id="search-btn" type="button" class="btn btn-primary btn-sm mx-sm-2">搜索
+                                        </button>
+                                        <button id="reset-btn" type="button"
+                                                class="btn btn-primary btn-sm">重置
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" id="refresh-btn"
+                                            class="btn btn-primary btn-sm mx-sm-2 float-right">
+                                        <span class="fa fa-sync-alt"></span>
+                                        刷新
+                                    </button>
+                                </div>
+                            </div>
+                            <!--
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-inline">
+                                        <input id="search-api-app" type="text" style="width: 30%"
+                                               placeholder="应用程序[默认Admin]">
+                                        <input id="search-api-version" type="text" style="width: 30%"
+                                               placeholder="接口版本[默认v1]">
+                                        <input id="search-api-class" type="text" style="width: 20%"
+                                               placeholder="接口类">
+                                        <input id="search-api-function" type="text" style="width: 20%;"
+                                               placeholder="接口函数">
+                                    </div>
+                                </div>
+                            </div>
+                            -->
+                        </div>
+                        <div class="card-body">
+                            <div class="dataTables_wrapper dt-bootstrap4"></div>
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>
+                                                <div class="checkbox">
+                                                    <label style="cursor:pointer;">
+                                                        <input type="checkbox" class="iCheck"
+                                                               id="no-assign-icheck-all">
+                                                        <span>全选/反选</span>
+                                                    </label>
+                                                </div>
+                                            </label>
+                                            <label>
+                                                <button id="assign-permission-btn" type="button"
+                                                        class="btn btn-primary btn-sm">分配权限
+                                                </button>
+                                            </label>
+                                            <label class="float-right">所有权限/未分配权限</label>
+                                        </div>
+                                    </div>
+                                    <div class="row border">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <!--search start-->
+                                                <!--
+                                                <div class="col-12">
+                                                    <div class="form-inline">
+                                                        <input id="search-api-app" type="text" style="width: 30%"
+                                                               placeholder="应用程序[默认Admin]">
+                                                        <input id="search-api-version" type="text" style="width: 30%"
+                                                               placeholder="接口版本[默认v1]">
+                                                        <input id="search-api-class" type="text" style="width: 20%"
+                                                               placeholder="接口类">
+                                                        <input id="search-api-function" type="text" style="width: 20%;"
+                                                               placeholder="接口函数">
+                                                    </div>
+                                                </div>
+                                                -->
+                                                <!--search end-->
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-12" style="height: 500px;overflow: scroll">
+                                                    <div class="form-group" id="no-assign-list">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 offset-1">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>
+                                                <div class="checkbox">
+                                                    <label style="cursor:pointer;">
+                                                        <input type="checkbox" class="iCheck"
+                                                               id="has-assign-icheck-all">
+                                                        <span>全选/反选</span>
+                                                    </label>
+                                                </div>
+                                            </label>
+                                            <label class="float-right">已分配权限</label>
+                                            <label>
+                                                <button id="delete-permission-btn" type="button"
+                                                        class="btn btn-primary btn-sm">删除权限
+                                                </button>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row border">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12" style="height: 500px;overflow: scroll">
+                                                    <div class="form-group" id="has-assign-list">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- row end -->
+                        </div>
+                        <!--card body end -->
+                    </div>
+                    <!-- card end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content -->
+
+    <script type="text/javascript" src="../../static/plugins/select2/js/select2.min.js"></script>
+    <script type="text/javascript" src="../../static/plugins/jquery-pagination/pagination.js"></script>
+    <script type="text/javascript" src="../../static/plugins/jquery-icheck/icheck.js"></script>
+    <script type="text/javascript">
+        jq(document).ready(function () {
+
+            //icheck start
+            jq('.iCheck').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+            })
+            //icheck end
+
+            //select change start
+            var getRolePermission = function (roleId) {
+                var url = getRequestUrl('/Admin/v1/RolePermission/getRolePermissionByRoleId')
+                var apiApp = jq('#search-api-app').val()
+                var apiVersion = jq('#search-api-version').val()
+                var apiClass = jq('#search-api-class').val()
+                var apiFunction = jq('#search-api-function').val()
+                var data = {}
+                data.roleId = roleId
+                data.apiApp = apiApp
+                data.apiVersion = apiVersion
+                data.apiClass = apiClass
+                data.apiFunction = apiFunction
+                openLoad()
+                ajaxPost(url, data, function (response) {
+                    closeLoad()
+                    if (isResponseUnauthorized(getResponseCode(response))) {
+                        return layerWarning(getResponseMessage(response), function () {
+                            redirectToLogin()
+                        })
+                    }
+                    if (isResponseFail(getResponseCode(response))) {
+                        layerFail(getResponseMessage(response))
+                    }
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        var noAssignPermission = response.data.noAssignPermission
+                        var rolePermission = response.data.rolePermission
+                        var noAssignPermissionLen = (Object.keys(noAssignPermission)).length
+                        var rolePermissionLen = (Object.keys(rolePermission)).length
+                        var noAssignPermissionHtml = ''
+                        var rolePermissionHtml = ''
+                        if (noAssignPermissionLen === 0) {
+                            noAssignPermissionHtml = '<p>没有查询到任何数据</p>'
+                            jq('#no-assign-list').html(noAssignPermissionHtml)
+                        } else {
+                            for (var i = 0; i < noAssignPermissionLen; i++) {
+                                noAssignPermissionHtml += '<div class="checkbox">'
+                                noAssignPermissionHtml += '<label style="cursor: pointer;width: 100%">'
+                                noAssignPermissionHtml += '<input type="checkbox" class="iCheck">'
+                                noAssignPermissionHtml +=
+                                    '<span style="padding:2px 6px;position:relative;top:2px;" class="list-span">' +
+                                    noAssignPermission[i].api_route +
+                                    '</span>'
+                                noAssignPermissionHtml += '</label>'
+                                noAssignPermissionHtml += '</div>'
+                            }
+                            jq('#no-assign-list').html(noAssignPermissionHtml)
+                            jq('.iCheck').iCheck({
+                                checkboxClass: 'icheckbox_square-blue',
+                            })
+                        }
+                        if (rolePermissionLen === 0) {
+                            rolePermissionHtml = '<p>没有查询到任何数据</p>'
+                            jq('#has-assign-list').html(rolePermissionHtml)
+                        } else {
+                            for (var i = 0; i < rolePermissionLen; i++) {
+                                rolePermissionHtml += '<div class="checkbox">'
+                                rolePermissionHtml += '<label style="cursor: pointer;width: 100%">'
+                                rolePermissionHtml += '<input type="checkbox" class="iCheck">'
+                                rolePermissionHtml +=
+                                    '<span style="padding:2px 6px;position: relative;top:2px;" class="list-span">' +
+                                    rolePermission[i].api_route +
+                                    '</span>'
+                                rolePermissionHtml += '</label>'
+                                rolePermissionHtml += '</div>'
+                            }
+                            jq('#has-assign-list').html(rolePermissionHtml)
+                            jq('.iCheck').iCheck({
+                                checkboxClass: 'icheckbox_square-blue',
+                            })
+                        }
+                        //change color start
+                        jq('.list-span').on('mouseover', function () {
+                            jq(this).addClass('text-primary')
+                            jq(this).addClass('border')
+                        })
+                        jq('.list-span').on('mouseout', function () {
+                            jq(this).removeClass('text-primary')
+                            jq(this).removeClass('border')
+                        })
+                        //change color end
+
+                        //reset icheck all start
+                        jq('#no-assign-icheck-all').iCheck('uncheck')
+                        jq('#has-assign-icheck-all').iCheck('uncheck')
+                        //reset icheck all end
+
+                        //icheck all start
+                        jq('#no-assign-icheck-all').on('ifClicked', function (event) {
+                            if (event.target.checked) {
+                                jq('#no-assign-list').find('input.iCheck').iCheck('uncheck')
+                            } else {
+                                jq('#no-assign-list').find('input.iCheck').iCheck('check')
+                            }
+                        })
+                        jq('#has-assign-icheck-all').on('ifClicked', function (event) {
+                            if (event.target.checked) {
+                                jq('#has-assign-list').find('input.iCheck').iCheck('uncheck')
+                            } else {
+                                jq('#has-assign-list').find('input.iCheck').iCheck('check')
+                            }
+                        })
+                        //icheck all end
+                    }
+                })
+            }
+            jq('#select-assign-role').on('change', function () {
+                var value = jq(this).val()
+                getRolePermission(value)
+            })
+            //select change end
+
+
+            //搜索/刷新 start
+            jq('#search-btn,#refresh-btn').on('click', function () {
+                var roleId = jq('#select-assign-role').val()
+                if (roleId === null) {
+                    return layerWarning('请选择角色')
+                }
+                getRolePermission(roleId)
+            })
+            //搜索/刷新 end
+
+            //重置 start
+            jq('#reset-btn').on('click', function () {
+                var roleId = jq('#select-assign-role').val()
+                if (roleId === null) {
+                    return layerWarning('请选择角色')
+                }
+                jq('#search-api-app').val('')
+                jq('#search-api-version').val('')
+                jq('#search-api-class').val('')
+                jq('#search-api-function').val('')
+                getRolePermission(roleId)
+            })
+            //重置 end
+
+            //删除权限 start
+            jq('#delete-permission-btn').on('click', function () {
+                var data = {}
+                var url = getRequestUrl('/Admin/v1/RolePermission/deleteRolePermissionByRoutes')
+                var roleId = jq('#select-assign-role').val()
+                if (roleId === null) {
+                    return layerWarning('请选择角色')
+                }
+                data.roleId = roleId
+                var apiRoutes = []
+                jq('#has-assign-list').find('input.iCheck').each(function () {
+                    var hasChecked = jq(this).prop('checked')
+                    var apiRoute = ''
+                    if (hasChecked) {
+                        apiRoute = jq(this).parents('div.checkbox').find('span.list-span').text()
+                        apiRoutes.push(apiRoute)
+                    }
+                })
+                data.apiRoutes = JSON.stringify(apiRoutes)
+                openLoad()
+                ajaxPost(url, data, function (response) {
+                    closeLoad()
+                    if (isResponseUnauthorized(getResponseCode(response))) {
+                        return layerWarning(getResponseMessage(response), function () {
+                            redirectToLogin()
+                        })
+                    }
+                    if (isResponseFail(getResponseCode(response))) {
+                        layerFail(getResponseMessage(response))
+                    }
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        layerSuccess(getResponseMessage(response), function () {
+                            getRolePermission(roleId)
+                        })
+                    }
+                })
+
+            })
+            //删除权限 end
+
+            //获取已选的权限 start
+            jq('#assign-permission-btn').on('click', function () {
+                var data = {}
+                var url = getRequestUrl('/Admin/v1/RolePermission/assignRolePermission')
+                var roleId = jq('#select-assign-role').val()
+                if (roleId === null) {
+                    return layerWarning('请选择角色')
+                }
+                data.roleId = roleId
+                var apiRoutes = []
+                jq('#no-assign-list').find('input.iCheck').each(function () {
+                    var hasChecked = jq(this).prop('checked')
+                    var apiRoute = ''
+                    if (hasChecked) {
+                        apiRoute = jq(this).parents('div.checkbox').find('span.list-span').text()
+                        apiRoutes.push(apiRoute)
+                    }
+                })
+                data.apiRoutes = JSON.stringify(apiRoutes)
+                openLoad()
+                ajaxPost(url, data, function (response) {
+                    closeLoad()
+                    if (isResponseUnauthorized(getResponseCode(response))) {
+                        return layerWarning(getResponseMessage(response), function () {
+                            redirectToLogin()
+                        })
+                    }
+                    if (isResponseFail(getResponseCode(response))) {
+                        layerFail(getResponseMessage(response))
+                    }
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        layerSuccess(getResponseMessage(response), function () {
+                            getRolePermission(roleId)
+                        })
+                    }
+                })
+            })
+            //获取已选的权限 end
+
+            //select2 start
+            jq('#select-assign-role').select2({
+                allowClear: true,
+                placeholder: "请选择要分配权限的角色",
+                value: "id",
+                name: "name",
+                ajax: {
+                    url: getRequestUrl('/Admin/v1/Role/getRoleList'),
+                    dataType: 'json',
+                    type: 'POST',
+                    headers: {'Authentication': getAdminAccessTokenCache()},
+                    delay: 250,
+                    cache: true,
+                    data: function (params) {
+                        return {
+                            name: params.term,
+                            offset: (params.page - 1) * 3 || 0,
+                            limit: 3,
+                        }
+                    },
+                    processResults: function (res, params) {
+                        if (isResponseSuccess(getResponseCode(res))) {
+                            params.page = params.page || 1
+                            var listData = res.data
+                            if (Object.keys(listData).length === 0) {
+                                return
+                            }
+                            roles = listData.list
+                            var optionList = []
+                            var optionsStr = ''
+                            for (var i = 0; i < roles.length; i++) {
+                                optionsStr = {"id": roles[i].id, "text": roles[i].name}
+                                optionList.push(optionsStr)
+                            }
+                            return {
+                                results: optionList,
+                                pagination: {
+                                    more: params.page < listData.count
+                                }
+                            }
+                        }
+                        handleUnSuccess(res)
+                    },
+                }
+            })
+            //select2 end
+        })
+    </script>
+</div>

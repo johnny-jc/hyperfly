@@ -1,0 +1,356 @@
+<link rel="stylesheet" href="../../static/plugins/jquery-pagination/pagination.css">
+<link rel="stylesheet" href="../../static/plugins/select2/css/select2.css">
+<link rel="stylesheet" href="../../static/plugins/jquery-icheck/skins/all.css">
+
+<div id="pjax-content">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0">角色分配管理</h1>
+                </div>
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-right">
+                        <li class="breadcrumb-item"><a href="javascript:void(0)">首页</a></li>
+                        <li class="breadcrumb-item active">角色分配管理</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        <!-- container-fluid -->
+
+        <!-- content-header -->
+        <div class="content">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-inline">
+                                        <div class="form-group mx-sm-3 mb-2" style="width:250px;">
+                                            <select class="form-control" id="select-assign-admin"
+                                                    style="width:100%;">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" id="refresh-btn"
+                                            class="btn btn-primary btn-sm mx-sm-2 float-right">
+                                        <span class="fa fa-sync-alt"></span>
+                                        刷新
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="dataTables_wrapper dt-bootstrap4"></div>
+                            <div class="row">
+                                <div class="col-5">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>
+                                                <div class="checkbox">
+                                                    <label style="cursor:pointer;">
+                                                        <input type="checkbox" class="iCheck" id="no-assign-icheck-all">
+                                                        <span>全选/反选</span>
+                                                    </label>
+                                                </div>
+                                            </label>
+                                            <label>
+                                                <button id="assign-role-btn" type="button"
+                                                        class="btn btn-primary btn-sm">分配角色
+                                                </button>
+                                            </label>
+                                            <label class="float-right">所有角色/未分配角色</label>
+                                        </div>
+                                    </div>
+                                    <div class="row border">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12" style="height: 500px;overflow: scroll">
+                                                    <div class="form-group" id="no-assign-list">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-5 offset-1">
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <label>
+                                                <div class="checkbox">
+                                                    <label style="cursor:pointer;">
+                                                        <input type="checkbox" class="iCheck"
+                                                               id="has-assign-icheck-all">
+                                                        <span>全选/反选</span>
+                                                    </label>
+                                                </div>
+                                            </label>
+                                            <label class="float-right">已分配角色</label>
+                                            <label>
+                                                <button id="delete-role-btn" type="button"
+                                                        class="btn btn-primary btn-sm">删除角色
+                                                </button>
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="row border">
+                                        <div class="col-12">
+                                            <div class="row">
+                                                <div class="col-12" style="height: 500px;overflow: scroll">
+                                                    <div class="form-group" id="has-assign-list">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- row end -->
+                        </div>
+                        <!--card body end -->
+                    </div>
+                    <!-- card end -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- content -->
+    <script type="text/javascript" src="../../static/plugins/jquery-pagination/pagination.js"></script>
+    <script type="text/javascript" src="../../static/plugins/select2/js/select2.min.js"></script>
+    <script type="text/javascript" src="../../static/plugins/jquery-icheck/icheck.js"></script>
+    <script type="text/javascript">
+        jq(document).ready(function () {
+
+            //获取管理员拥有的角色 start
+            var getAdminRole = function (adminId) {
+                var url = getRequestUrl('/Admin/v1/RoleAdmin/getAdminRoleByAdminId')
+                var data = {adminId: adminId}
+                openLoad()
+                ajaxPost(url, data, function (response) {
+                    closeLoad()
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        var noAssignRoleHtml = ''
+                        var adminRoleHtml = ''
+                        var noAssignRole = response.data.noAssignRole
+                        var adminRole = response.data.adminRole
+                        var noAssignRoleLen = (Object.keys(noAssignRole)).length
+                        var adminRoleLen = (Object.keys(adminRole)).length
+                        if (noAssignRoleLen === 0) {
+                            noAssignRoleHtml = '<p>没有查询到任何数据</p>'
+                            jq('#no-assign-list').html(noAssignRoleHtml)
+                        } else {
+                            for (var i = 0; i < noAssignRoleLen; i++) {
+                                noAssignRoleHtml += '<div class="checkbox">'
+                                noAssignRoleHtml += '<label style="cursor: pointer;width:100%;">'
+                                noAssignRoleHtml += '<input type="checkbox" class="iCheck" value="'
+                                    + noAssignRole[i].id + '">'
+                                noAssignRoleHtml +=
+                                    '<span style="padding:2px 6px;position: relative" class="list-span">' +
+                                    noAssignRole[i].name + '</span>'
+                                noAssignRoleHtml += '<label>'
+                                noAssignRoleHtml += '</div>'
+                                jq('#no-assign-list').html(noAssignRoleHtml)
+                                jq('.iCheck').iCheck({
+                                    checkboxClass: 'icheckbox_square-blue',
+                                })
+                            }
+                        }
+                        if (adminRoleLen === 0) {
+                            adminRoleHtml = '<p>没有查询到任何数据</p>'
+                            jq('#has-assign-list').html(adminRoleHtml)
+                        } else {
+                            for (var i = 0; i < adminRoleLen; i++) {
+                                adminRoleHtml += '<div class="checkbox">'
+                                adminRoleHtml += '<label style="cursor: pointer;width:100%;">'
+                                adminRoleHtml += '<input type="checkbox" class="iCheck" value="' +
+                                    adminRole[i].get_role.id + '">'
+                                adminRoleHtml +=
+                                    '<span style="padding:2px 6px;position: relative" class="list-span">'
+                                    + adminRole[i].get_role.name + '</span>'
+                                adminRoleHtml += '</labe>'
+                                adminRoleHtml += '</div>'
+                                jq('#has-assign-list').html(adminRoleHtml)
+                                jq('.iCheck').iCheck({
+                                    checkboxClass: 'icheckbox_square-blue',
+                                })
+                            }
+                        }
+                        //reset icheck all start
+                        jq('#no-assign-icheck-all').iCheck('uncheck')
+                        jq('#has-assign-icheck-all').iCheck('uncheck')
+                        //reset icheck all end
+
+                        //未分配角色全选/反选 start
+                        jq('#no-assign-icheck-all').on('ifClicked', function (event) {
+                            if (event.target.checked) {
+                                jq('#no-assign-list').find('input.iCheck').iCheck('uncheck')
+                            } else {
+                                jq('#no-assign-list').find('input.iCheck').iCheck('check')
+                            }
+                        })
+                        jq('#has-assign-icheck-all').on('ifClicked', function (event) {
+                            if (event.target.checked) {
+                                jq('#has-assign-list').find('input.iCheck').iCheck('uncheck')
+                            } else {
+                                jq('#has-assign-list').find('input.iCheck').iCheck('check')
+                            }
+                        })
+                        //未分配角色全选/反选 end
+                    }
+                    handleUnSuccess(response)
+                })
+            }
+            jq('#select-assign-admin').on('change', function () {
+                var value = jq(this).val()
+                getAdminRole(value)
+            })
+            //获取管理员拥有的角色 end
+
+            //刷新 start
+            jq('#refresh-btn').on('click', function () {
+                var adminId = jq('#select-assign-admin').val()
+                if (adminId === null) {
+                    return layerWarning('请选择角色')
+                }
+                getAdminRole(adminId)
+            })
+            //刷新 end
+
+            //icheck start
+            jq('.iCheck').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+            })
+            //icheck end
+
+            //select2 start
+            jq('#select-assign-admin').select2({
+                allowClear: true,
+                placeholder: "请选择要分配角色的管理员",
+                value: "id",
+                name: "name",
+                ajax: {
+                    url: getRequestUrl('/Admin/v1/Admin/getAdminList'),
+                    dataType: 'json',
+                    type: 'POST',
+                    headers: {'Authentication': getAdminAccessTokenCache()},
+                    delay: 250,
+                    cache: true,
+                    data: function (params) {
+                        return {
+                            username: params.term,
+                            offset: (params.page - 1) * 3 || 0,
+                            limit: 3,
+                        }
+                    },
+                    processResults: function (res, params) {
+                        if (isResponseSuccess(getResponseCode(res))) {
+                            params.page = params.page || 1
+                            var listData = res.data
+                            if (Object.keys(listData).length === 0) {
+                                return
+                            }
+                            var adminList = listData.list
+                            var optionList = []
+                            var optionsStr = ''
+                            for (var i = 0; i < adminList.length; i++) {
+                                optionsStr = {"id": adminList[i].id, "text": adminList[i].username}
+                                optionList.push(optionsStr)
+                            }
+                            return {
+                                results: optionList,
+                                pagination: {
+                                    more: params.page < listData.count
+                                }
+                            }
+                        }
+                        handleUnSuccess(res)
+                    },
+                }
+            })
+            //select2 end
+
+            //删除角色 start
+            jq('#delete-role-btn').on('click', function () {
+                var adminId = jq('#select-assign-admin').val()
+                if (adminId === null) {
+                    layerWarning('请选择角色')
+                    return
+                }
+                var data = {}
+                data.adminId = adminId
+                var roleIds = []
+                jq('#has-assign-list').find('input.iCheck').each(function () {
+                    var hasChecked = jq(this).prop('checked')
+                    if (hasChecked) {
+                        var roleId = jq(this).val()
+                        roleIds.push(roleId)
+                    }
+                })
+                data.roleIds = JSON.stringify(roleIds)
+                var url = getRequestUrl('/Admin/v1/RoleAdmin/deleteAdminRoleByAdminId')
+                openLoad()
+                ajaxPost(url, data, function (response) {
+                    closeLoad()
+                    if (isResponseUnauthorized(getResponseCode(response))) {
+                        return layerWarning(getResponseMessage(response), function () {
+                            redirectToLogin()
+                        })
+                    }
+                    if (isResponseFail(getResponseCode(response))) {
+                        layerFail(getResponseMessage(response))
+                    }
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        layerSuccess(getResponseMessage(response), function () {
+                            getAdminRole(adminId)
+                        })
+                    }
+                })
+
+
+            })
+            //删除角色 end
+
+            //分配角色 start
+            jq('#assign-role-btn').on('click', function () {
+                var adminId = jq('#select-assign-admin').val()
+                if (adminId === null) {
+                    return layerWarning('请选择角色')
+                }
+                var data = {}
+                data.adminId = adminId
+                var roleIds = []
+                jq('#no-assign-list').find('input.iCheck').each(function () {
+                    var hasChecked = jq(this).prop('checked')
+                    if (hasChecked) {
+                        var roleId = jq(this).val()
+                        roleIds.push(roleId)
+                    }
+                })
+                data.roleIds = JSON.stringify(roleIds)
+                var url = getRequestUrl('/Admin/v1/RoleAdmin/assignAdminRole')
+                openLoad()
+                ajaxPost(url, data, function (response) {
+                    closeLoad()
+                    if (isResponseUnauthorized(getResponseCode(response))) {
+                        return layerWarning(getResponseMessage(response), function () {
+                            redirectToLogin()
+                        })
+                    }
+                    if (isResponseFail(getResponseCode(response))) {
+                        layerFail(getResponseMessage(response))
+                    }
+                    if (isResponseSuccess(getResponseCode(response))) {
+                        layerSuccess(getResponseMessage(response), function () {
+                            getAdminRole(adminId)
+                        })
+                    }
+                })
+            })
+            //分配角色 end
+        })
+    </script>
+</div>

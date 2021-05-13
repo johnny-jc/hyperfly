@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Api\ApiActiveRecord;
 
 use Api\ApiBase\BaseActiveRecord;
+use Api\ApiApp\Admin\Model\AdminModel;
 
 /**
  * Class AdminActiveRecord
@@ -33,12 +34,13 @@ class AdminActiveRecord extends BaseActiveRecord
      * @var string
      */
     protected $connection = 'default';
-
     /**
-     * timestamp
-     * @var bool
+     * 属性默认值
+     * @var array
      */
-    public $timestamps = false;
+    protected $attributes = [
+        'status' => AdminModel::ADMIN_STATUS_ENABLE,
+    ];
 
     /**
      * @var string[]
@@ -52,5 +54,19 @@ class AdminActiveRecord extends BaseActiveRecord
         'access_token',
         'access_token_expire_time',
     ];
+
+    /**
+     * timestamp
+     * @var bool
+     */
+    public $timestamps = true;
+
+    /**
+     * @return string
+     */
+    public function getTable()
+    {
+        return parent::getTable();
+    }
 
 }

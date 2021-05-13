@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <title>HyperflyAdmin</title>
 
-    <link rel="stylesheet" href="common/plugins/fontawesome-free/css/all.min.css">
-    <link rel="stylesheet" href="common/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-    <link rel="stylesheet" href="common/css/adminlte.min.css">
+    <link rel="stylesheet" href="static/plugins/fontawesome-free-5.15.3-web/css/all.css">
+    <link rel="stylesheet" href="static/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="static/plugins/AdminLTE-3.1.0/dist/css/adminlte.css">
 
 </head>
 <body class="hold-transition login-page">
@@ -14,7 +14,7 @@
     <!-- /.login-logo -->
     <div class="card card-outline card-primary">
         <div class="card-header text-center">
-            <a href="#" class="h1"><b>Hyperfly</b>Admin</a>
+            <a href="javascript:void(0)" class="h1"><b>Hyperfly</b>Admin</a>
         </div>
         <div class="card-body">
             <p class="login-box-msg">登录后台管理系统</p>
@@ -63,12 +63,14 @@
 <!-- /.login-box -->
 
 <!-- jQuery -->
-<script src="common/plugins/jquery/jquery.min.js"></script>
+<script src="static/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="common/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="static/plugins/bootstrap-5.0.0-beta3-dist/js/bootstrap.bundle.js"></script>
 <!-- AdminLTE App -->
-<script src="common/js/adminlte.min.js"></script>
-<script src="common/plugins/layer/layer.js"></script>
+<script src="static/plugins/AdminLTE-3.1.0/dist/js/adminlte.js"></script>
+<script src="static/plugins/layer/layer.js"></script>
+<script src="../../static/plugins/layui/layui.all.js"></script>
+<script src="static/js/base.js"></script>
 
 
 </body>
@@ -79,51 +81,35 @@
             var username = jq("#username").val()
             var password = jq("#password").val()
 
-            if (username.length == 0) {
-                layer.msg("请填写账号")
-                return
+            if (username.length === 0) {
+                return layerWarning('请填写账号')
             }
-            if (password.length == 0) {
-                layer.msg("请填写密码")
-                return
+            if (password.length === 0) {
+                return layerWarning('请填写密码')
             }
-            var url = "http://127.0.0.1:9501/admin/v1/admin/login"
+            var url = getRequestUrl('/Admin/v1/Admin/login')
             //防止重复提交
             jq("#username").val("")
             jq("#password").val("")
-            jq.ajax({
-                url: url,
-                data: {"username": username, "password": password},
-                dataType: "json",
-                type: "POST",
-                success: function (res) {
-                    if (res.code === 0) {
-                        //返回错误重新填充数据
+            var data = {'username': username, 'password': password}
+            openLoad()
+            ajaxPost(url, data, function (response) {
+                closeLoad()
+                if (isResponseFail(getResponseCode(response))) {
+                    layerFail(getResponseMessage(response), function () {
                         jq("#username").val(username)
                         jq("#password").val(password)
-                        layer.msg(res.message, {icon: 5})
-                        return
-                    }
-                    var user = res.data.user
-                    jq.each(user, function (key, value) {
-                        if (key === 'id') {
-                            key = 'admin_id'
-                        }
-                        if (key === 'access_token') {
-                            key = 'admin_access_token'
-                        }
-                        localStorage.setItem(key, value)
                     })
-                    layer.msg('登录成功,即将跳转...', {
-                        time: 2000,
-                        icon: 1
-                    }, function () {
-                        jq(location).attr('href', 'index.html')
+                }
+                if (isResponseSuccess(getResponseCode(response))) {
+                    layerSuccess(getResponseMessage(response), function () {
+                        var user = getResponseData(response).user
+                        setAdminAccessTokenCache(user.access_token)
+                        redirectToIndex()
                     })
                 }
             })
         })
-
     })
 </script>
 

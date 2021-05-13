@@ -18,7 +18,7 @@
       "email": "yjy86868@163.com"
     }
   ],
-  "description": "协助企业快速开发项目节约成本的纯API后台RBAC框架",
+  "description": "基于Swoole框架Hyperf开发的协助企业快速开发项目节约成本的纯API后台RBAC管理框架",
   "license": "MIT",
   "require": {
     "php": ">=7.3",

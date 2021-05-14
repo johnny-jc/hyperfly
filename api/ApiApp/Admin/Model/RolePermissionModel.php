@@ -80,10 +80,10 @@ class RolePermissionModel extends BaseModel
             }
             $tmp = [
                 'role_id' => $roleId,
-                'api_app' => $permission[0],
-                'api_version' => $permission[1],
-                'api_class' => $permission[2],
-                'api_function' => $permission[3],
+                'api_app' => $permission[1],
+                'api_version' => $permission[2],
+                'api_class' => $permission[3],
+                'api_function' => $permission[4],
                 'api_route' => implode('/', $permission),
                 'auth_type' => self::AUTH_TYPE_WITH,
             ];

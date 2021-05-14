@@ -125,7 +125,7 @@ class PermissionMiddleware extends Base implements MiddlewareInterface
             ->get()
             ->toArray();
         if (empty($rolePermission)) {
-            return false;
+            return [];
         }
         $allowedPermission = [];
         foreach ($rolePermission as $k => $v) {

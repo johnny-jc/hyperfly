@@ -403,6 +403,7 @@ class AdminController extends BaseController
         $adminId = (int)$adminCacheArr['id'];
         $updateData = [
             'password' => password_hash($this->request->input('password'), PASSWORD_DEFAULT),
+            'status' => AdminModel::ADMIN_STATUS_ENABLE,
         ];
         if (!$this->adminModel->updateAdminById($adminId, $updateData)) {
             return $this->fail();

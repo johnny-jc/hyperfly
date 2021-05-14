@@ -28,6 +28,7 @@ return [
             'heartbeat' => -1,
             'max_idle_time' => (float)env('DB_MAX_IDLE_TIME', 60),
         ],
+        /*
         'commands' => [
             'gen:model' => [
                 'path' => 'api/ApiActiveRecord',
@@ -35,5 +36,6 @@ return [
                 'inheritance' => 'Model',
             ],
         ],
+        */
     ],
 ];

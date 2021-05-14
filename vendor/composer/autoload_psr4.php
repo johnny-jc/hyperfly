@@ -73,7 +73,6 @@ return array(
     'Hyperf\\Config\\' => array($vendorDir . '/hyperf/config/src'),
     'Hyperf\\Command\\' => array($vendorDir . '/hyperf/command/src'),
     'Hyperf\\Cache\\' => array($vendorDir . '/hyperf/cache/src'),
-    'HyperfTest\\' => array($baseDir . '/test'),
     'GuzzleHttp\\Psr7\\' => array($vendorDir . '/guzzlehttp/psr7/src'),
     'GuzzleHttp\\Promise\\' => array($vendorDir . '/guzzlehttp/promises/src'),
     'GuzzleHttp\\' => array($vendorDir . '/guzzlehttp/guzzle/src'),

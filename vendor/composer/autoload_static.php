@@ -124,7 +124,6 @@ class ComposerStaticInite78cf6322984ec8650fceaa889214e48
             'Hyperf\\Config\\' => 14,
             'Hyperf\\Command\\' => 15,
             'Hyperf\\Cache\\' => 13,
-            'HyperfTest\\' => 11,
         ),
         'G' => 
         array (
@@ -159,7 +158,6 @@ class ComposerStaticInite78cf6322984ec8650fceaa889214e48
         ),
         'A' => 
         array (
-            'App\\' => 4,
             'Api\\' => 4,
         ),
     );
@@ -436,10 +434,6 @@ class ComposerStaticInite78cf6322984ec8650fceaa889214e48
         array (
             0 => __DIR__ . '/..' . '/hyperf/cache/src',
         ),
-        'HyperfTest\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/test',
-        ),
         'GuzzleHttp\\Psr7\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/psr7/src',
@@ -504,10 +498,6 @@ class ComposerStaticInite78cf6322984ec8650fceaa889214e48
         array (
             0 => __DIR__ . '/..' . '/nesbot/carbon/src/Carbon',
         ),
-        'App\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/app',
-        ),
         'Api\\' => 
         array (
             0 => __DIR__ . '/../..' . '/api',
@@ -546,6 +536,7 @@ class ComposerStaticInite78cf6322984ec8650fceaa889214e48
         'Api\\ApiApp\\Admin\\v1\\Controller\\RoleAdminController' => __DIR__ . '/../..' . '/api/ApiApp/Admin/v1/Controller/RoleAdminController.php',
         'Api\\ApiApp\\Admin\\v1\\Controller\\RoleController' => __DIR__ . '/../..' . '/api/ApiApp/Admin/v1/Controller/RoleController.php',
         'Api\\ApiApp\\Admin\\v1\\Controller\\RolePermissionController' => __DIR__ . '/../..' . '/api/ApiApp/Admin/v1/Controller/RolePermissionController.php',
+        'Api\\ApiApp\\Admin\\v2\\Controller\\TestController' => __DIR__ . '/../..' . '/api/ApiApp/Admin/v2/Controller/TestController.php',
         'Api\\ApiBase\\ApiAbstract' => __DIR__ . '/../..' . '/api/ApiBase/ApiAbstract.php',
         'Api\\ApiBase\\ApiActionResultInterface' => __DIR__ . '/../..' . '/api/ApiBase/ApiActionResultInterface.php',
         'Api\\ApiBase\\ApiRequestResultInterface' => __DIR__ . '/../..' . '/api/ApiBase/ApiRequestResultInterface.php',
@@ -1024,8 +1015,6 @@ class ComposerStaticInite78cf6322984ec8650fceaa889214e48
         'Hamcrest\\Type\\IsString' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php',
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
-        'HyperfTest\\Cases\\ExampleTest' => __DIR__ . '/../..' . '/test/Cases/ExampleTest.php',
-        'HyperfTest\\HttpTestCase' => __DIR__ . '/../..' . '/test/HttpTestCase.php',
         'Hyperf\\Cache\\AnnotationManager' => __DIR__ . '/..' . '/hyperf/cache/src/AnnotationManager.php',
         'Hyperf\\Cache\\Annotation\\CacheEvict' => __DIR__ . '/..' . '/hyperf/cache/src/Annotation/CacheEvict.php',
         'Hyperf\\Cache\\Annotation\\CachePut' => __DIR__ . '/..' . '/hyperf/cache/src/Annotation/CachePut.php',

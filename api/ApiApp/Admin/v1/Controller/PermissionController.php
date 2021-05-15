@@ -11,12 +11,20 @@ use Doctrine\Common\Annotations\AnnotationReader;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\Di\Annotation\Inject;
+use Api\ApiService\Middleware\AuthMiddleware;
+use Api\ApiService\Middleware\PermissionMiddleware;
+use Hyperf\HttpServer\Annotation\Middlewares;
+use Hyperf\HttpServer\Annotation\Middleware;
 
 /**
  * 权限管理控制器
  * Class PermissionController
  * @package Api\ApiApp\Admin\v1\Controller
  * @Controller(prefix="Admin/v1/Permission")
+ * @Middlewares({
+ *     @Middleware(AuthMiddleware::class),
+ *     @Middleware(PermissionMiddleware::class)
+ *     })
  */
 class PermissionController extends BaseController
 {

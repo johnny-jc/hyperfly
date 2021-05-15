@@ -12,12 +12,20 @@ use Api\ApiApp\Admin\Model\MenuModel;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\Di\Annotation\Inject;
+use Api\ApiService\Middleware\AuthMiddleware;
+use Api\ApiService\Middleware\PermissionMiddleware;
+use Hyperf\HttpServer\Annotation\Middlewares;
+use Hyperf\HttpServer\Annotation\Middleware;
 
 /**
  * 管理员菜单关联控制器
  * Class AdminController
- * @Controller(prefix="Admin/v1/AdminMenu")
  * @package Api\ApiApp\Admin\v1\Controller
+ * @Controller(prefix="Admin/v1/AdminMenu")
+ * @Middlewares({
+ *     @Middleware(AuthMiddleware::class),
+ *     @Middleware(PermissionMiddleware::class)
+ *     })
  */
 class AdminMenuController extends BaseController
 {

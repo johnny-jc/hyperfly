@@ -11,12 +11,20 @@ use Hyperf\HttpServer\Contract\RequestInterface;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\Di\Annotation\Inject;
 use Hyperf\HttpServer\Annotation\Controller;
+use Api\ApiService\Middleware\AuthMiddleware;
+use Api\ApiService\Middleware\PermissionMiddleware;
+use Hyperf\HttpServer\Annotation\Middlewares;
+use Hyperf\HttpServer\Annotation\Middleware;
 
 /**
  * 菜单管理控制器
  * Class MenuController
  * @package Api\ApiApp\Admin\v1\Controller
  * @Controller(prefix="Admin/v1/Menu")
+ * @Middlewares({
+ *     @Middleware(AuthMiddleware::class),
+ *     @Middleware(PermissionMiddleware::class)
+ *     })
  */
 class MenuController extends BaseController
 {

@@ -13,8 +13,6 @@ return [
     'http' => [
         Api\ApiService\Middleware\CorsMiddleware::class,//跨域
         Api\ApiService\Middleware\RequestMethodAllowedMiddleware::class,//请求方式只能是post
-        Api\ApiService\Middleware\AuthMiddleware::class,//AccessToken鉴权
         Api\ApiService\Middleware\FormatResponseMiddleware::class,//校验以及格式化返回数据
-        Api\ApiService\Middleware\PermissionMiddleware::class,//RBAC权限校验
     ],
 ];

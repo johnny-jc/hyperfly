@@ -12,12 +12,20 @@ use Api\ApiApp\Admin\Model\RolePermissionModel;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\Di\Annotation\Inject;
+use Api\ApiService\Middleware\AuthMiddleware;
+use Api\ApiService\Middleware\PermissionMiddleware;
+use Hyperf\HttpServer\Annotation\Middlewares;
+use Hyperf\HttpServer\Annotation\Middleware;
 
 /**
  * 角色权限管理控制器
  * Class RolePermissionController
- * @Controller(prefix="Admin/v1/RolePermission")
  * @package Api\ApiApp\Admin\v1\Controller
+ * @Controller(prefix="Admin/v1/RolePermission")
+ * @Middlewares({
+ *     @Middleware(AuthMiddleware::class),
+ *     @Middleware(PermissionMiddleware::class)
+ *     })
  */
 class RolePermissionController extends BaseController
 {

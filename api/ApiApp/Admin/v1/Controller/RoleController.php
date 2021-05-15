@@ -11,12 +11,20 @@ use Hyperf\Validation\Rule;
 use Hyperf\HttpServer\Annotation\RequestMapping;
 use Hyperf\HttpServer\Annotation\Controller;
 use Hyperf\Di\Annotation\Inject;
+use Api\ApiService\Middleware\AuthMiddleware;
+use Api\ApiService\Middleware\PermissionMiddleware;
+use Hyperf\HttpServer\Annotation\Middlewares;
+use Hyperf\HttpServer\Annotation\Middleware;
 
 /**
  * 角色管理控制器
  * Class RoleController
- * @Controller(prefix="Admin/v1/Role")
  * @package Api\ApiApp\Admin\v1\Controller
+ * @Controller(prefix="Admin/v1/Role")
+ * @Middlewares({
+ *     @Middleware(AuthMiddleware::class),
+ *     @Middleware(PermissionMiddleware::class)
+ *     })
  */
 class RoleController extends BaseController
 {

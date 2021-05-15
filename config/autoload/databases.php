@@ -13,7 +13,7 @@ return [
     'default' => [
         'driver' => env('DB_DRIVER', 'mysql'),
         'host' => env('DB_HOST', 'localhost'),
-        'database' => env('DB_DATABASE', 'hyperfly'),
+        'database' => env('DB_DATABASE', 'rent'),
         'port' => env('DB_PORT', 3306),
         'username' => env('DB_USERNAME', 'root'),
         'password' => env('DB_PASSWORD', '1100'),

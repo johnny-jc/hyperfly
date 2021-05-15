@@ -22,6 +22,7 @@ return array(
     'Api\\ApiApp\\Admin\\Model\\RolePermissionModel' => $baseDir . '/api/ApiApp/Admin/Model/RolePermissionModel.php',
     'Api\\ApiApp\\Admin\\v1\\Controller\\AdminController' => $baseDir . '/api/ApiApp/Admin/v1/Controller/AdminController.php',
     'Api\\ApiApp\\Admin\\v1\\Controller\\AdminMenuController' => $baseDir . '/api/ApiApp/Admin/v1/Controller/AdminMenuController.php',
+    'Api\\ApiApp\\Admin\\v1\\Controller\\BaseController' => $baseDir . '/api/ApiApp/Admin/v1/Controller/BaseController.php',
     'Api\\ApiApp\\Admin\\v1\\Controller\\MenuController' => $baseDir . '/api/ApiApp/Admin/v1/Controller/MenuController.php',
     'Api\\ApiApp\\Admin\\v1\\Controller\\PermissionController' => $baseDir . '/api/ApiApp/Admin/v1/Controller/PermissionController.php',
     'Api\\ApiApp\\Admin\\v1\\Controller\\RoleAdminController' => $baseDir . '/api/ApiApp/Admin/v1/Controller/RoleAdminController.php',

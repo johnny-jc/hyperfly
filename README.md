@@ -14,7 +14,6 @@
 ![image](http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly04.png)
 ![image](http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly05.png)
 ![image](http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly06.png)
-![image](http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly07.png)
 ## 功能介绍
 ### `hyperfly`
 #### 项目地址 : [https://github.com/vankour/hyperfly](https://github.com/vankour/hyperfly "https://github.com/vankour/hyperfly")

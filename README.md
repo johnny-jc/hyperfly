@@ -18,6 +18,7 @@
 ## 功能介绍
 ### `hyperfly`
 #### 项目地址 : [https://github.com/vankour/hyperfly](https://github.com/vankour/hyperfly "https://github.com/vankour/hyperfly")
+#### `hyperfly`基于`swoole`框架`hyperf`，版本`2.1`开发的。项目已经包含了`hyperf-redis`以及`hyperf-valdiation`以及`hyperf-watcher`
 #### `hyperfly`提供了经典的`RBAC`权限控制功能、并且基于现在纯API开发的趋势下，采用了接口即权限的方式，权限控制的实现全部是纯接口化的
 #### `RBAC`的实现。传统的`RBAC`要么逻辑设计上不够清晰、要么过于复杂，对于初中级开发者理解难度过大，对于初创型项目不够合适。`hyperfly`实现了更加清晰简单的逻辑。即管理员、菜单、角色、权限、接口各自独立不耦合。基于`hyperf`的注解功能，一键生成系统中所有注解到路由的接口到数据库，并且采用接口即权限的方式，将权限分配给角色，再将角色分配给管理员，把菜单从权限中解耦出来，可以独立的将菜单分配给管理员。思路清晰，并且满足项目初期的需求
 ### `HyperflyAdmin`
@@ -31,7 +32,7 @@
 **`bootstrap-5.0.0-beta3`**
 **`layer-3.3.0`**
 
-## 使用
+## 安装
 ### `hyperfly`安装。通过`composer`安装
 ```shell
 composer create-project vankour/hyperfly
@@ -42,3 +43,6 @@ php bin/hyperf.php start
 ```shell
 git clone https://github.com/vankour/HyperflyAdmin.git
 ```
+## 使用
+#### 直接在项目的的`api`文件夹开发
+## 更多教程等阿里云域名`hyperfly.cc`备案通过后，在项目官网上再详细介绍

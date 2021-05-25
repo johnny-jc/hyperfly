@@ -8,3 +8,10 @@
 #### **对**于公司而言。尤其是初创公司，php带来的好处是无疑的。低成本高效率迭代容易。几乎所有的项目都需要开发后端管理系统以及三端的API接口，在现在物联网趋势下，甚至以后需要开发更多端的接口。根据我做过项目的经验，个人认为纯API的对接在效率上会优于传统的混合开发
 #### **但**是现在在市面上找不到一个纯接口化的基于`Swoole`的RBAC框架。这也是我开发`hyperfly`框架的初衷。想开发一个更加容易上手，减少学习成本的，对初中级程序员更加友好，又能满足中小型项目的RBAC后台管理框架
 ## 项目截图
+http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly01.png
+http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly02.png
+http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly03.png
+http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly04.png
+http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly05.png
+http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly06.png
+http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly07.png

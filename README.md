@@ -15,4 +15,30 @@
 ![image](http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly05.png)
 ![image](http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly06.png)
 ![image](http://yangjianyong.cn/wp-content/uploads/2021/05/hyperfly07.png)
-## 功能
+## 功能介绍
+### `hyperfly`
+#### 项目地址 : [https://github.com/vankour/hyperfly](https://github.com/vankour/hyperfly "https://github.com/vankour/hyperfly")
+#### `hyperfly`提供了经典的`RBAC`权限控制功能、并且基于现在纯API开发的趋势下，采用了接口即权限的方式，权限控制的实现全部是纯接口化的
+#### `RBAC`的实现。传统的`RBAC`要么逻辑设计上不够清晰、要么过于复杂，对于初中级开发者理解难度过大，对于初创型项目不够合适。`hyperfly`实现了更加清晰简单的逻辑。即管理员、菜单、角色、权限、接口各自独立不耦合。基于`hyperf`的注解功能，一键生成系统中所有注解到路由的接口到数据库，并且采用接口即权限的方式，将权限分配给角色，再将角色分配给管理员，把菜单从权限中解耦出来，可以独立的将菜单分配给管理员。思路清晰，并且满足项目初期的需求
+### `HyperflyAdmin`
+#### 项目地址 : [https://github.com/vankour/HyperflyAdmin](https://github.com/vankour/HyperflyAdmin "https://github.com/vankour/HyperflyAdmin")
+#### `HyperflyAdmin`，简称`HA`。`HA`采用了`bootstrap`后台框架`AdminLTE`，，集成了`AdminLTE`提供的整套`web`开发的`jquery`组件，采用`jQuery`以及`pjax`单页面技术。弹窗采用的国产的`layer`
+#### **目前只是用爱发电，只提供了基于传统的`jQuery`实现的后台页面。后续有需要实现`vue`版本**
+#### 各类组件版本
+**`FontAwesome-Free-5.15.3`**
+**`AdminLTE-3.1.0`**
+**`jQuery-3.6.0`**
+**`bootstrap-5.0.0-beta3`**
+**`layer-3.3.0`**
+
+## 使用
+### `hyperfly`安装。通过`composer`安装
+```shell
+composer create-project vankour/hyperfly
+
+php bin/hyperf.php start
+```
+### `HyperflyAdmin`安装
+```shell
+git clone https://github.com/vankour/HyperflyAdmin.git
+```

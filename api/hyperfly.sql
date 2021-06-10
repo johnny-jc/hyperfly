@@ -134,7 +134,6 @@ INSERT INTO `rbac_permission` VALUES ('Admin', 'v1', 'RoleAdmin', 'getAdminRoleB
 INSERT INTO `rbac_permission` VALUES ('Admin', 'v1', 'RolePermission', 'assignRolePermission', '/Admin/v1/RolePermission/assignRolePermission', '');
 INSERT INTO `rbac_permission` VALUES ('Admin', 'v1', 'RolePermission', 'deleteRolePermissionByRoutes', '/Admin/v1/RolePermission/deleteRolePermissionByRoutes', '');
 INSERT INTO `rbac_permission` VALUES ('Admin', 'v1', 'RolePermission', 'getRolePermissionByRoleId', '/Admin/v1/RolePermission/getRolePermissionByRoleId', '');
-INSERT INTO `rbac_permission` VALUES ('Admin', 'v2', 'Test', 'testFunction', '/Admin/v2/Test/testFunction', '');
 COMMIT;
 
 -- ----------------------------

@@ -17,7 +17,7 @@ use Hyperf\Di\Annotation\Inject;
 class PermissionModel extends BaseModel
 {
     /**
-     * 接口白名单
+     * Auth接口白名单
      * @param string $requestPath
      * @return bool
      */
@@ -30,7 +30,7 @@ class PermissionModel extends BaseModel
     }
 
     /**
-     * 接口白名单
+     * Permission接口白名单
      * @param string $requestPath
      * @return bool
      */

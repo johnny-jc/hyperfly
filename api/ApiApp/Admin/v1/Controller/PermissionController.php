@@ -93,8 +93,12 @@ class PermissionController extends BaseController
     public function generateFilePermissions()
     {
         $requestData = $this->request->all();
-        $this->apiApp = $requestData['apiApp'] ?? $this->apiApp;
-        $this->apiVersion = $requestData['apiVersion'] ?? $this->apiVersion;
+        if (!isset($requestData['apiApp']) && !empty($requestData['apiApp'])) {
+            $this->apiApp = $requestData['apiApp'];
+        }
+        if (!isset($requestData['apiVersion']) && !empty($requestData['apiVersion'])) {
+            $this->apiVersion = $requestData['apiVersion'];
+        }
         if (!$this->isApiAppDirExists()) {
             return $this->fail('应用程序入口:' . $requestData['apiApp'] . '不存在');
         }
@@ -147,7 +151,7 @@ class PermissionController extends BaseController
                     $methods = $reflectionObj->getMethods(\ReflectionMethod::IS_PUBLIC);
                     if (!is_object($annotationClass) ||
                         (property_exists($annotationClass, 'prefix') !== true)) {
-                        $this->throwApiException('Controller注解路由错误，属性:`prefix`不存在');
+                        continue;
                     }
                     $prefix = $annotationClass->prefix;
                     $prefixExplode = explode('/', $prefix);

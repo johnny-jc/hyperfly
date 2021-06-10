@@ -536,7 +536,6 @@ class ComposerStaticInite78cf6322984ec8650fceaa889214e48
         'Api\\ApiApp\\Admin\\v1\\Controller\\RoleAdminController' => __DIR__ . '/../..' . '/api/ApiApp/Admin/v1/Controller/RoleAdminController.php',
         'Api\\ApiApp\\Admin\\v1\\Controller\\RoleController' => __DIR__ . '/../..' . '/api/ApiApp/Admin/v1/Controller/RoleController.php',
         'Api\\ApiApp\\Admin\\v1\\Controller\\RolePermissionController' => __DIR__ . '/../..' . '/api/ApiApp/Admin/v1/Controller/RolePermissionController.php',
-        'Api\\ApiApp\\Admin\\v2\\Controller\\TestController' => __DIR__ . '/../..' . '/api/ApiApp/Admin/v2/Controller/TestController.php',
         'Api\\ApiBase\\ApiAbstract' => __DIR__ . '/../..' . '/api/ApiBase/ApiAbstract.php',
         'Api\\ApiBase\\ApiActionResultInterface' => __DIR__ . '/../..' . '/api/ApiBase/ApiActionResultInterface.php',
         'Api\\ApiBase\\ApiRequestResultInterface' => __DIR__ . '/../..' . '/api/ApiBase/ApiRequestResultInterface.php',

@@ -27,7 +27,6 @@ return array(
     'Api\\ApiApp\\Admin\\v1\\Controller\\RoleAdminController' => $baseDir . '/api/ApiApp/Admin/v1/Controller/RoleAdminController.php',
     'Api\\ApiApp\\Admin\\v1\\Controller\\RoleController' => $baseDir . '/api/ApiApp/Admin/v1/Controller/RoleController.php',
     'Api\\ApiApp\\Admin\\v1\\Controller\\RolePermissionController' => $baseDir . '/api/ApiApp/Admin/v1/Controller/RolePermissionController.php',
-    'Api\\ApiApp\\Admin\\v2\\Controller\\TestController' => $baseDir . '/api/ApiApp/Admin/v2/Controller/TestController.php',
     'Api\\ApiBase\\ApiAbstract' => $baseDir . '/api/ApiBase/ApiAbstract.php',
     'Api\\ApiBase\\ApiActionResultInterface' => $baseDir . '/api/ApiBase/ApiActionResultInterface.php',
     'Api\\ApiBase\\ApiRequestResultInterface' => $baseDir . '/api/ApiBase/ApiRequestResultInterface.php',

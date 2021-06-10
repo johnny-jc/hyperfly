@@ -93,10 +93,10 @@ class PermissionController extends BaseController
     public function generateFilePermissions()
     {
         $requestData = $this->request->all();
-        if (!isset($requestData['apiApp']) && !empty($requestData['apiApp'])) {
+        if (isset($requestData['apiApp'])) {
             $this->apiApp = $requestData['apiApp'];
         }
-        if (!isset($requestData['apiVersion']) && !empty($requestData['apiVersion'])) {
+        if (isset($requestData['apiVersion'])) {
             $this->apiVersion = $requestData['apiVersion'];
         }
         if (!$this->isApiAppDirExists()) {
@@ -200,6 +200,7 @@ class PermissionController extends BaseController
     {
         $path = BASE_PATH . self::DS . 'api' . self::DS . 'ApiApp' . self::DS . $this->apiApp . self::DS .
             $this->apiVersion;
+        var_dump('====================' . $path);
         return is_dir($path);
     }
 

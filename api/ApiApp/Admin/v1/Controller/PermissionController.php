@@ -186,7 +186,7 @@ class PermissionController extends BaseController
      */
     private function isApiAppDirExists()
     {
-        $path = BASE_PATH . self::DS . 'api' . self::DS . 'ApiApp' . self::DS . $this->apiApp;
+        $path = BASE_PATH . self::DS . 'Api' . self::DS . 'ApiApp' . self::DS . $this->apiApp;
         return is_dir($path);
     }
 
@@ -198,9 +198,8 @@ class PermissionController extends BaseController
      */
     private function isApiVersionDirExists()
     {
-        $path = BASE_PATH . self::DS . 'api' . self::DS . 'ApiApp' . self::DS . $this->apiApp . self::DS .
+        $path = BASE_PATH . self::DS . 'Api' . self::DS . 'ApiApp' . self::DS . $this->apiApp . self::DS .
             $this->apiVersion;
-        var_dump('====================' . $path);
         return is_dir($path);
     }
 
@@ -263,7 +262,7 @@ class PermissionController extends BaseController
      */
     private function getControllers()
     {
-        $path = BASE_PATH . self::DS . 'api' . self::DS . 'apiApp' . self::DS;
+        $path = BASE_PATH . self::DS . 'Api' . self::DS . 'ApiApp' . self::DS;
         $path .= $this->apiApp . self::DS . $this->apiVersion . self::DS . $this->controllerDirName;
         $controllerFiles = scandir($path);
         if ($controllerFiles === false) {
